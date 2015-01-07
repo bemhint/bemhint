@@ -1,0 +1,44 @@
+{
+  "name": "bemhint",
+  "version": "0.0.0",
+  "description": "BEM hint",
+  "keywords": [
+    "BEM",
+    "hint",
+    "BEM hint",
+    "lint"
+  ],
+  "homepage": "https://github.com/eGavr/bemhint",
+  "bugs": "https://github.com/eGavr/bemhint/issues",
+  "author": {
+    "name": "Evgeniy Gavryushin",
+    "email": "job.egavr@yandex.ru",
+    "url": "https://github.com/eGavr"
+  },
+  "main": "./lib/index.js",
+  "bin": {
+    "bemhint": "./bin/bemhint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eGavr/bemhint.git"
+  },
+  "dependencies": {
+    "coa": "0.4.1",
+    "colors": "1.0.3",
+    "vow": "0.4.7",
+    "vow-fs": "0.3.4",
+    "lodash": "2.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.2.10"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}
