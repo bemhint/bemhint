@@ -30,8 +30,14 @@
     "vow-fs": "0.3.4",
     "lodash": "2.4.1"
   },
-  "devDependencies": {},
-  "scripts": {},
+  "devDependencies": {
+    "jshint": "2.5.3",
+    "jscs": "1.5.9"
+  },
+  "scripts": {
+    "test": "npm run lint",
+    "lint": "jshint . && jscs -c .jscs.js ."
+  },
   "engines": {
     "node": ">=0.8.0",
     "npm": ">=1.2.10"
