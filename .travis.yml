@@ -6,3 +6,8 @@ node_js:
 env:
   global:
     - GH_REF: github.com/eGavr/bemhint.git
+    - ISTANBUL_COVERAGE: true
+
+after_success:
+  - npm i coveralls
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && echo "Coverage data was sent to coveralls!"
