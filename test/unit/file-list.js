@@ -58,7 +58,7 @@ describe('file-list', function () {
     it('must get files by suffixes', function (done) {
         fileList.load()
             .then(function () {
-                fileList.getFilesBySuffixes(['.bemhtml', '.deps.js', '.js']).must.eql(expectedSuffixes);
+                fileList.getBySuffixes(['.bemhtml', '.deps.js', '.js']).must.eql(expectedSuffixes);
             })
             .then(done, done);
     });
