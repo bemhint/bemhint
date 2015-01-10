@@ -1,0 +1,7 @@
+block block1, mod mod {
+    // ...
+
+    { block: 'i-bem', elem: 'i18n' }
+
+    // ...
+}

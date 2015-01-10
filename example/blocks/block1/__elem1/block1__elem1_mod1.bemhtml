@@ -1,0 +1,7 @@
+block block1, mod mod2, elem elem {
+    // ...
+
+    BEM.I18N()
+
+    // ...
+}

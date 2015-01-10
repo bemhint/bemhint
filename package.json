@@ -44,7 +44,8 @@
     "lint": "jshint . && jscs -c .jscs.js .",
     "unit-test": "mocha test/unit",
     "func-test": "mocha test/func",
-    "cover": "istanbul cover _mocha -- test/unit test/func"
+    "cover": "istanbul cover _mocha -- test/unit test/func",
+    "example": "cd example && ../bin/bemhint -c .bemhint.js"
   },
   "engines": {
     "node": ">=0.8.0",
