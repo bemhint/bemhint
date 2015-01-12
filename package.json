@@ -15,7 +15,7 @@
     "email": "job.egavr@yandex.ru",
     "url": "https://github.com/eGavr"
   },
-  "main": "./lib/index.js",
+  "main": "./lib/bemhint.js",
   "bin": {
     "bemhint": "./bin/bemhint"
   },
