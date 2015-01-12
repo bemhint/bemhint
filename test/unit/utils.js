@@ -40,7 +40,7 @@ describe('utils', function () {
                 { jsContent: '', bemhtmlContent: '' }, // 0
                 { jsContent: 'js BEM.decl( js', bemhtmlContent: '' }, // 1
                 { jsContent: '', bemhtmlContent: 'bemhtml' }, // 2
-                { jsContent: 'js DOM.decl( js', bemhtmlContent: '' }, // 3
+                { jsContent: 'js BEM.DOM.decl( js', bemhtmlContent: '' }, // 3
                 { jsContent: 'js BEM.INTERNAL js', bemhtmlContent: '' }, // 4
                 { jsContent: 'js BEM.HTML js', bemhtmlContent: '' }, // 5
                 { jsContent: 'js BEM.I18N( js', bemhtmlContent: '' }, // 6
