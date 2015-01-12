@@ -3,10 +3,16 @@
   "version": "0.0.1-alpha",
   "description": "BEM hint",
   "keywords": [
-    "BEM",
+    "bem",
     "hint",
-    "BEM hint",
-    "lint"
+    "deps",
+    "lint",
+    "linter",
+    "bem hint",
+    "bem lint",
+    "deps lint",
+    "bem linter",
+    "deps linter"
   ],
   "homepage": "https://github.com/eGavr/bemhint",
   "bugs": "https://github.com/eGavr/bemhint/issues",
