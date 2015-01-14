@@ -1,5 +1,5 @@
 module.exports = {
-    checkDirectories: [
+    levels: [
         'blocks'
     ]
 };
