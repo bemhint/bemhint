@@ -30,7 +30,7 @@ describe('bemhint', function () {
             }
         });
 
-        bemhint({ checkDirectories: ['blocks'] })
+        bemhint({ levels: ['blocks'] })
             .then(function (res) {
                 res.must.be.eql([]);
             })
@@ -80,7 +80,7 @@ describe('bemhint', function () {
             }
         ];
 
-        bemhint({ checkDirectories: ['blocks'] })
+        bemhint({ levels: ['blocks'] })
             .then(function (res) {
                 res.must.be.eql(output);
             })

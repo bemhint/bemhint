@@ -1,8 +1,10 @@
-var utils = require('../../lib/utils');
+var depsUtils = require('../../lib/checker/utils'),
+    bemhintUtils = require('../../lib/utils');
 
 describe('utils', function () {
-    it('must get actual deps', function () {
-        var input = [
+    describe('deps-checker', function () {
+        it('must get actual deps', function () {
+            var input = [
                 { mustDeps: 'i-bem' }, // 0
                 { mustDeps: { block: 'i-bem' } }, // 1
                 { mustDeps: { block: 'i-bem', elem: 'dom' } }, // 2
@@ -30,13 +32,13 @@ describe('utils', function () {
                 { block: 'i-bem', elems: ['dom'] } // 9
             ];
 
-        for (var i = 0; i < input.length; i++) {
-            utils.getActualDeps(input[i]).must.be.eql(output[i]);
-        }
-    });
+            for (var i = 0; i < input.length; i++) {
+                depsUtils.getActualDeps(input[i]).must.be.eql(output[i]);
+            }
+        });
 
-    it('must get expected deps', function () {
-        var input = [
+        it('must get expected deps', function () {
+            var input = [
                 { jsContent: '', bemhtmlContent: '' }, // 0
                 { jsContent: 'js BEM.decl( js', bemhtmlContent: '' }, // 1
                 { jsContent: '', bemhtmlContent: 'bemhtml' }, // 2
@@ -59,13 +61,13 @@ describe('utils', function () {
                 { block: 'i-bem', elems: ['html', 'i18n'] } // 8
             ];
 
-        for (var i = 0; i < input.length; i++) {
-            utils.getExpectedDeps(input[i].jsContent, input[i].bemhtmlContent).must.be.eql(output[i]);
-        }
-    });
+            for (var i = 0; i < input.length; i++) {
+                depsUtils.getExpectedDeps(input[i].jsContent, input[i].bemhtmlContent).must.be.eql(output[i]);
+            }
+        });
 
-    it('must compare deps correctly', function () {
-        var input = [
+        it('must compare deps correctly', function () {
+            var input = [
                 {
                     actualDeps: { block: 'i-bem' },
                     expectedDeps: {}
@@ -81,8 +83,70 @@ describe('utils', function () {
             ],
             output = [false, false, true];
 
-        for (var i = 0; i < input.length; i++) {
-            utils.isEqual(input[i].actualDeps, input[i].expectedDeps).must.be.equal(output[i]);
-        }
+            for (var i = 0; i < input.length; i++) {
+                depsUtils.isEqual(input[i].actualDeps, input[i].expectedDeps).must.be.equal(output[i]);
+            }
+        });
+
+        it('must sort array of objects by property \'fullpath\'', function () {
+            var input = [{ fullpath: '3' }, { fullpath: '2' }, { fullpath: '1' }],
+                output = [{ fullpath: '1' }, { fullpath: '2' }, { fullpath: '3' }];
+
+            depsUtils.sortByFullpath(input).must.be.eql(output);
+        });
+    });
+
+    describe('bemhint', function () {
+        it('must filter entities by techs', function () {
+            var input = {
+                block1: [
+                    {
+                        name: 'block1.deps.js',
+                        tech: 'deps.js',
+                        path: 'blocks/block1/block1.deps.js',
+                        content: 'block1.deps.js'
+                    },
+                    {
+                        name: 'block1.css',
+                        tech: 'css',
+                        path: 'blocks/block1/block1.css',
+                        content: 'block1.css'
+                    },
+                    {
+                        name: 'block1.js',
+                        tech: 'js',
+                        path: 'blocks/block1/block1.js',
+                        content: 'block1.js'
+                    }
+                ],
+                // jscs: disable
+                block1_mod1: [
+                    {
+                        name: 'block1_mod1.css',
+                        tech: 'css',
+                        path: 'blocks/block1/_mod1/block1_mod1.css',
+                        content: 'block1_mod1.css'
+                    }
+                ]
+            },
+            output = {
+                block1: [
+                    {
+                        name: 'block1.deps.js',
+                        tech: 'deps.js',
+                        path: 'blocks/block1/block1.deps.js',
+                        content: 'block1.deps.js'
+                    },
+                    {
+                        name: 'block1.js',
+                        tech: 'js',
+                        path: 'blocks/block1/block1.js',
+                        content: 'block1.js'
+                    }
+                ]
+            };
+
+            bemhintUtils.filterByTechs(input, ['deps.js', 'js']).must.be.eql(output);
+        });
     });
 });

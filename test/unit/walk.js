@@ -1,11 +1,9 @@
 var mockFs = require('mock-fs'),
-    FileList = require('../../lib/file-list'),
-    fileList = new FileList(['common.blocks', 'desktop.blocks']);
+    scan = require('../../lib/walk');
 
-var expectedList = require('./fixtures/expected-list'),
-    expectedSuffixes = require('./fixtures/expected-suffixes');
+var expectedList = require('./fixtures/expected-entities');
 
-describe('file-list', function () {
+describe('walk', function () {
     beforeEach(function () {
         mockFs({
             'common.blocks': {
@@ -19,6 +17,13 @@ describe('file-list', function () {
                     },
                     _mod1: {
                         'block1_mod1.css': 'block1_mod1.css'
+                    },
+                    'block1.tech': {
+                        blocks: {
+                            block1: {
+                                'block1.css': 'block1.css'
+                            }
+                        }
                     },
                     'block1.js': 'block1.js'
                 },
@@ -37,6 +42,13 @@ describe('file-list', function () {
                         'block1__elem1_mod2.deps.js': 'block1__elem1_mod2.deps.js',
                         'block1__elem1_mod2.js': 'block1__elem1_mod2.js',
                     },
+                    'block1.examples': {
+                        blocks: {
+                            block1: {
+                                'block1.css': 'block1.css'
+                            }
+                        }
+                    },
                     'block1.css': 'block1.css'
                 }
             }
@@ -47,18 +59,10 @@ describe('file-list', function () {
         mockFs.restore();
     });
 
-    it('must load a file list', function (done) {
-        fileList.load()
-            .then(function () {
-                fileList.getContent().must.eql(expectedList);
-            })
-            .then(done, done);
-    });
-
-    it('must get files by suffixes', function (done) {
-        fileList.load()
-            .then(function () {
-                fileList.getBySuffixes(['.bemhtml', '.deps.js', '.js']).must.eql(expectedSuffixes);
+    it('must load entities', function (done) {
+        scan(['common.blocks', 'desktop.blocks'])
+            .then(function (res) {
+                res.must.be.eql(expectedList);
             })
             .then(done, done);
     });
