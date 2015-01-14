@@ -19,6 +19,9 @@ Options:
   -h, --help : Help
   -v, --version : Shows the version number
   -c CONFIG, --config=CONFIG : Path to the configuration file (required)
+
+Arguments:
+  TARGET : Path to the directory for check (required)
 ```
 
 ### Configuration file
@@ -30,4 +33,10 @@ module.exports = {
         'desktop.blocks'
     ]
 };
+```
+
+### Example
+
+```bash
+$ bemhint -c .bemhint.js .
 ```
