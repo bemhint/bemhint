@@ -25,7 +25,7 @@ Options:
 
 ```js
 module.exports = {
-    checkDirectories: [
+    levels: [
         'common.blocks',
         'desktop.blocks'
     ]

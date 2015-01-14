@@ -35,7 +35,9 @@
     "vow": "0.4.7",
     "vow-fs": "0.3.4",
     "lodash": "2.4.1",
-    "inherit": "2.2.2"
+    "inherit": "2.2.2",
+    "bem-walk": "https://github.com/andrewblond/bem-walk/archive/master.tar.gz",
+    "bem-naming": "0.5.1"
   },
   "devDependencies": {
     "mocha": "1.18.2",
