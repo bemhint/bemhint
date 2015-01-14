@@ -37,6 +37,11 @@ module.exports = {
             name: 'block1.examples',
             tech: 'examples',
             path: 'desktop.blocks/block1/block1.examples'
+        },
+        {
+            name: 'block1.tests',
+            path: 'desktop.blocks/block1/block1.tests',
+            tech: 'tests'
         }
     ],
     'common.blocks/block1__elem1': [
@@ -115,6 +120,14 @@ module.exports = {
             tech: 'css',
             path: 'desktop.blocks/block1/block1.examples/blocks/block1/block1.css',
             content: 'block1.css'
+        }
+    ],
+    'desktop.blocks/block1/block1.tests/blocks/block1': [
+        {
+            name: 'block1.js',
+            tech: 'js',
+            path: 'desktop.blocks/block1/block1.tests/blocks/block1/block1.js',
+            content: 'block1.js'
         }
     ]
 };

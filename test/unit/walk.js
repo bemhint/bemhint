@@ -49,6 +49,13 @@ describe('walk', function () {
                             }
                         }
                     },
+                    'block1.tests': {
+                        blocks: {
+                            block1: {
+                                'block1.js': 'block1.js'
+                            }
+                        }
+                    },
                     'block1.css': 'block1.css'
                 }
             }
