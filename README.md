@@ -18,19 +18,19 @@ Usage:
 Options:
   -h, --help : Help
   -v, --version : Shows the version number
-  -c CONFIG, --config=CONFIG : Path to the configuration file (required)
+  -c CONFIG, --config=CONFIG : Path to the configuration file
 
 Arguments:
-  TARGET : Path to the directory for check (required)
+  TARGETS : Path to BEM entities for check (required)
 ```
 
 ### Configuration file
 
 ```js
 module.exports = {
-    levels: [
-        'common.blocks',
-        'desktop.blocks'
+    excludeFiles: [
+        '*.blocks/block/**',
+        '*.blocks/*/*.tech'
     ]
 };
 ```
@@ -38,5 +38,7 @@ module.exports = {
 ### Example
 
 ```bash
-$ bemhint -c .bemhint.js .
+$ bemhint --config=path/to/.bemhint.js path/to/entities
+
+$ bemhint .
 ```
