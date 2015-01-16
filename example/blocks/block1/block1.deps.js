@@ -1,7 +1,0 @@
-([
-    {
-        mustDeps: [
-            { block: 'i-bem' }
-        ]
-    }
-])
