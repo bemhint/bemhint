@@ -37,7 +37,8 @@
     "lodash": "2.4.1",
     "inherit": "2.2.2",
     "bem-walk": "https://github.com/andrewblond/bem-walk/archive/master.tar.gz",
-    "bem-naming": "0.5.1"
+    "bem-naming": "0.5.1",
+    "minimatch": "2.0.1"
   },
   "devDependencies": {
     "mocha": "1.18.2",
@@ -48,12 +49,11 @@
     "mock-fs": "2.3.2"
   },
   "scripts": {
-    "test": "npm run lint && npm run unit-test && npm run func-test && npm run cover",
+    "test": "npm run lint && npm run unit-test && npm run cover",
     "lint": "jshint . && jscs -c .jscs.js .",
-    "unit-test": "mocha test/unit",
-    "func-test": "mocha test/func",
-    "cover": "istanbul cover _mocha -- test/unit test/func",
-    "example": "bin/bemhint -c example/.bemhint.js example"
+    "unit-test": "mocha test/unit/**",
+    "cover": "istanbul cover _mocha -- test/unit/**",
+    "example": "bin/bemhint -c example/.bemhint.js example/"
   },
   "engines": {
     "node": ">=0.8.0",

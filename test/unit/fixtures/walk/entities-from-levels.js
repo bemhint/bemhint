@@ -12,6 +12,14 @@ module.exports = {
             path: 'common.blocks/block1/block1.tech'
         }
     ],
+    'common.blocks/block1/block1.tech/blocks/block1': [
+        {
+            name: 'block1.css',
+            path: 'common.blocks/block1/block1.tech/blocks/block1/block1.css',
+            tech: 'css',
+            content: 'block1.css',
+        }
+    ],
     'common.blocks/block2': [
         {
             name: 'block2.deps.js',
