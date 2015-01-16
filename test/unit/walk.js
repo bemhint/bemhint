@@ -1,7 +1,11 @@
 var mockFs = require('mock-fs'),
+    minimatch = require('minimatch'),
     scan = require('../../lib/walk');
 
-var expectedList = require('./fixtures/expected-entities');
+var entities = {
+    fromLevels: require('./fixtures/walk/entities-from-levels'),
+    fromTargets: require('./fixtures/walk/entities-from-targets')
+};
 
 describe('walk', function () {
     beforeEach(function () {
@@ -58,7 +62,8 @@ describe('walk', function () {
                     },
                     'block1.css': 'block1.css'
                 }
-            }
+            },
+            another: {}
         });
     });
 
@@ -66,10 +71,30 @@ describe('walk', function () {
         mockFs.restore();
     });
 
-    it('must load entities', function (done) {
-        scan(['common.blocks', 'desktop.blocks'])
+    it('must load entities from levels', function (done) {
+        scan(undefined, [])
             .then(function (res) {
-                res.must.be.eql(expectedList);
+                res.must.be.eql(entities.fromLevels);
+            })
+            .then(done, done);
+    });
+
+    it('must load entities from targets', function (done) {
+        scan(['common.blocks/block2', 'desktop.blocks/block1/block1.examples/', 'another'], [])
+            .then(function (res) {
+                res.must.be.eql(entities.fromTargets);
+            })
+            .then(done, done);
+    });
+
+    it('must exclude all files', function (done) {
+        var revealedMask = new minimatch.Minimatch('*blocks/**', {
+                dot: true
+            });
+
+        scan(['common.blocks', 'desktop.blocks'], [revealedMask])
+            .then(function (res) {
+                res.must.be.eql({});
             })
             .then(done, done);
     });
