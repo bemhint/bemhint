@@ -71,15 +71,15 @@ describe('walk', function () {
         mockFs.restore();
     });
 
-    it('must load entities from levels', function (done) {
-        scan(undefined, [])
+    it('must load all entities', function (done) {
+        scan(['.'], [])
             .then(function (res) {
                 res.must.be.eql(entities.fromLevels);
             })
             .then(done, done);
     });
 
-    it('must load entities from targets', function (done) {
+    it('must load specified entities', function (done) {
         scan(['common.blocks/block2', 'desktop.blocks/block1/block1.examples/', 'another'], [])
             .then(function (res) {
                 res.must.be.eql(entities.fromTargets);
