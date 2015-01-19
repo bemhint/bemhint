@@ -6,7 +6,7 @@
 $ npm install bemhint
 ```
 
-### Usage
+## Usage
 
 ```
 $ bemhint --help
@@ -26,16 +26,34 @@ Arguments:
 
 ### Configuration file
 
+Configuration file is **required**. If the path to it was not specified, it will be loaded from the current directory from the file `.bemhint.js`.
+
+#### Options:
+
+* **levels: [Array]**
+
+Sets _masks_ for redefinition levels.
+
+* **excludeFiles: [Array]**
+
+Sets _masks_ for files/dirs to ignore during the check.
+
+
+### Examples
+
+#### Configuration
+
 ```js
 module.exports = {
+    levels: ['*.blocks'],
     excludeFiles: [
         '*.blocks/block/**',
-        '*.blocks/*/*.tech'
+        '*.blocks/*/*.ext'
     ]
 };
 ```
 
-### Example
+#### Usage
 
 ```bash
 $ bemhint --config=path/to/.bemhint.js path/to/entities
