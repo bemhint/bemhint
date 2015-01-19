@@ -1,10 +1,10 @@
 var mockFs = require('mock-fs'),
-    minimatch = require('minimatch'),
-    scan = require('../../lib/walk');
+    scan = require('../../lib/walk'),
+    Configuration = require('../../lib/configuration');
 
 var entities = {
-    fromLevels: require('./fixtures/walk/entities-from-levels'),
-    fromTargets: require('./fixtures/walk/entities-from-targets')
+    fromLevels: require('./fixtures/walk/all-entities'),
+    fromTargets: require('./fixtures/walk/specified-entities')
 };
 
 describe('walk', function () {
@@ -47,9 +47,9 @@ describe('walk', function () {
                         'block1__elem1_mod2.js': 'block1__elem1_mod2.js',
                     },
                     'block1.examples': {
-                        blocks: {
-                            block1: {
-                                'block1.css': 'block1.css'
+                        examples: {
+                            example1: {
+                                'example1.css': 'example1.css'
                             }
                         }
                     },
@@ -72,7 +72,12 @@ describe('walk', function () {
     });
 
     it('must load all entities', function (done) {
-        scan(['.'], [])
+        var config = new Configuration({
+            levels: ['*blocks', '*examples'],
+            excludeFiles: []
+        });
+
+        scan(['.'], config)
             .then(function (res) {
                 res.must.be.eql(entities.fromLevels);
             })
@@ -80,7 +85,12 @@ describe('walk', function () {
     });
 
     it('must load specified entities', function (done) {
-        scan(['common.blocks/block2', 'desktop.blocks/block1/block1.examples/', 'another'], [])
+        var config = new Configuration({
+            levels: ['*blocks', '*examples'],
+            excludeFiles: []
+        });
+
+        scan(['common.blocks/block2', 'desktop.blocks/block1/block1.examples/examples', 'another'], config)
             .then(function (res) {
                 res.must.be.eql(entities.fromTargets);
             })
@@ -88,11 +98,12 @@ describe('walk', function () {
     });
 
     it('must exclude all files', function (done) {
-        var revealedMask = new minimatch.Minimatch('*blocks/**', {
-                dot: true
-            });
+        var config = new Configuration({
+            levels: ['*blocks'],
+            excludeFiles: ['*blocks/**']
+        });
 
-        scan(['common.blocks', 'desktop.blocks'], [revealedMask])
+        scan(['common.blocks', 'desktop.blocks'], config)
             .then(function (res) {
                 res.must.be.eql({});
             })

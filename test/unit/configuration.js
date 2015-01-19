@@ -19,4 +19,15 @@ describe('configuration', function () {
 
         config.getExcludeFiles().must.be.eql(output);
     });
+
+    it('must get levels', function () {
+        var config = new Configuration({
+            levels: ['*.blocks'],
+            configPath: 'config.js'
+        });
+
+        var output = [new RegExp('.*\\.blocks(/|$)', 'g')];
+
+        config.getLevels().must.be.eql(output);
+    });
 });

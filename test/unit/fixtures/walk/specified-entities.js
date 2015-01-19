@@ -13,12 +13,12 @@ module.exports = {
             content: 'block2.js'
         }
     ],
-    'desktop.blocks/block1/block1.examples/blocks/block1': [
+    'desktop.blocks/block1/block1.examples/examples/example1': [
         {
-            name: 'block1.css',
+            name: 'example1.css',
             tech: 'css',
-            path: 'desktop.blocks/block1/block1.examples/blocks/block1/block1.css',
-            content: 'block1.css'
+            path: 'desktop.blocks/block1/block1.examples/examples/example1/example1.css',
+            content: 'example1.css'
         }
     ]
 };
