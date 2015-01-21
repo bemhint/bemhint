@@ -1,5 +1,9 @@
 # BEM hint [![Build Status](https://travis-ci.org/eGavr/bemhint.svg)](https://travis-ci.org/eGavr/bemhint) [![Coverage Status](https://img.shields.io/coveralls/eGavr/bemhint.svg)](https://coveralls.io/r/eGavr/bemhint?branch=master) [![Dependency Status](https://david-dm.org/eGavr/bemhint.svg)](https://david-dm.org/eGavr/bemhint) [![devDependency Status](https://david-dm.org/eGavr/bemhint/dev-status.svg)](https://david-dm.org/eGavr/bemhint#info=devDependencies)
 
+## Status
+
+The initial stage of development. Code is unstable. Your [suggestions and comments](https://github.com/eGavr/bemhint/issues/new) are wellcome.
+
 ## Install
 
 ```
