@@ -36,7 +36,7 @@
     "vow-fs": "0.3.4",
     "lodash": "2.4.1",
     "inherit": "2.2.2",
-    "bem-walk": "https://github.com/andrewblond/bem-walk/archive/master.tar.gz",
+    "bem-walk": "git://github.com/andrewblond/bem-walk#dcfeaf5e5a8eec541ad00e45d8dd1183f991dd92",
     "bem-naming": "0.5.1",
     "minimatch": "2.0.1"
   },
