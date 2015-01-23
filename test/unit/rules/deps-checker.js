@@ -39,15 +39,15 @@ describe('deps-checker', function () {
 
         it('must get expected deps', function () {
             var input = [
-                { jsContent: '', bemhtmlContent: '' }, // 0
-                { jsContent: 'js BEM.decl( js', bemhtmlContent: '' }, // 1
-                { jsContent: '', bemhtmlContent: 'bemhtml' }, // 2
-                { jsContent: 'js BEM.DOM.decl( js', bemhtmlContent: '' }, // 3
-                { jsContent: 'js BEM.INTERNAL js', bemhtmlContent: '' }, // 4
-                { jsContent: 'js BEM.HTML js', bemhtmlContent: '' }, // 5
-                { jsContent: 'js BEM.I18N( js', bemhtmlContent: '' }, // 6
-                { jsContent: '', bemhtmlContent: 'bemhtml BEM.I18N( bemhtml' }, // 7
-                { jsContent: '', bemhtmlContent: 'bemhtml \n    block  :\t \'i-bem\'  ,\n\n elem\t\n:  \'i18n\'' } // 8
+                {}, // 0
+                { js: { content: 'js BEM.decl( js' } }, // 1
+                { bemhtml: { content: 'bemhtml' } }, // 2
+                { js: { content: 'js BEM.DOM.decl( js' } }, // 3
+                { js: { content: 'js BEM.INTERNAL js' } }, // 4
+                { js: { content: 'js BEM.HTML js' } }, // 5
+                { js: { content: 'js BEM.I18N( js' } }, // 6
+                { bemhtml: { content: 'bemhtml BEM.I18N( bemhtml' } }, // 7
+                { bemhtml: { content: 'bemhtml \n    block  :\t \'i-bem\'  ,\n\n elem\t\n:  \'i18n\'' } } // 8
             ],
             output = [
                 {}, // 0
@@ -62,7 +62,7 @@ describe('deps-checker', function () {
             ];
 
             for (var i = 0; i < input.length; i++) {
-                depsChecker._getExpectedDeps(input[i].jsContent, input[i].bemhtmlContent).must.be.eql(output[i]);
+                depsChecker._getExpectedDeps(input[i].js, input[i].bemhtml).must.be.eql(output[i]);
             }
         });
 
