@@ -34,7 +34,7 @@
     "colors": "1.0.3",
     "vow": "0.4.7",
     "vow-fs": "0.3.4",
-    "lodash": "2.4.1",
+    "lodash": "3.5.0",
     "inherit": "2.2.2",
     "bem-walk": "git://github.com/andrewblond/bem-walk#dcfeaf5e5a8eec541ad00e45d8dd1183f991dd92",
     "bem-naming": "0.5.1",
@@ -49,10 +49,10 @@
     "mock-fs": "2.3.2"
   },
   "scripts": {
-    "test": "npm run lint && npm run unit-test && npm run cover",
+    "test": "npm run lint && npm run bemhint-test && npm run cover",
     "lint": "jshint . && jscs -c .jscs.js .",
-    "unit-test": "mocha test/unit/**",
-    "cover": "istanbul cover _mocha -- test/unit/**"
+    "bemhint-test": "mocha test/bemhint/**",
+    "cover": "istanbul cover _mocha -- test/bemhint/**"
   },
   "engines": {
     "node": ">=0.8.0",
