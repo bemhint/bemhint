@@ -37,6 +37,7 @@ Options:
   -h, --help : Help
   -v, --version : Shows the version number
   -c CONFIG, --config=CONFIG : Path to the configuration file
+  -r REPORTERS, --reporter=REPORTERS : flat or/and html (default: flat)
 
 Arguments:
   TARGETS : Path to BEM entities for check (required)
@@ -76,9 +77,9 @@ module.exports = {
 #### Usage
 
 ```bash
-$ bemhint --config=path/to/config/file path/to/entities
+$ bemhint --config=path/to/config/file path/to/entities --reporter flat --reporter html
 
-$ bemhint -c .bemhint.js common.blocks
+$ bemhint -c .bemhint.js common.blocks -r html
 
 $ bemhint .
 ```
