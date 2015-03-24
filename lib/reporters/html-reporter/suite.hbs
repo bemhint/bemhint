@@ -1,0 +1,54 @@
+<style>
+    .info {
+        font-family: Arial;
+        display: inline-block;
+        margin-top: 10px;
+        width: 100px;
+        font-weight: bold;
+    }
+    .path {
+        width: 100%;
+    }
+    .actual {
+        color: red;
+    }
+    .expected {
+        color: green;
+    }
+    .error {
+        margin-bottom: 20px;
+    }
+    .footer {
+        width: 200px;
+        margin-top: 10px;
+        border-bottom: 1px solid #708090;
+    }
+
+    .title {
+        margin-bottom: 30px;
+        font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
+    }
+    .content {
+        display: inline;
+        font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+
+<div class="title">
+    <p><b>{{title}}</b>{{#if errors.length}}{{errors.length}}{{/if}}</p>
+</div>
+
+{{#errors}}
+    <div class="error">
+        <div class="info path">{{path}}</div>
+        <div>
+            <div class="info actual">actual:</div>
+            <div class="content">{{actual}}</div>
+        </div>
+        <div>
+            <div class="info expected">expected:</div>
+            <div class="content">{{expected}}</div>
+        </div>
+        <div class="footer"></div>
+    </div>
+{{/errors}}
