@@ -4,13 +4,14 @@ var mockFs = require('mock-fs'),
 
 var entities = {
     fromLevels: require('./fixtures/walk/all-entities'),
-    fromTargets: require('./fixtures/walk/specified-entities')
+    fromTargets: require('./fixtures/walk/specified-entities'),
+    fromFile: require('./fixtures/walk/entity-from-file')
 };
 
 describe('walk', function () {
     beforeEach(function () {
         mockFs({
-            'common.blocks': {
+            'common.blocks': { // redefinition level
                 block1: {
                     __elem1:     {
                         _mod1: {
@@ -36,7 +37,7 @@ describe('walk', function () {
                     'block2.deps.js': 'block2.deps.js'
                 }
             },
-            'desktop.blocks': {
+            'desktop.blocks': { // redefinition level
                 block1: {
                     __elem1: {
                         'block1__elem1_mod1.bemhtml': 'block1__elem1_mod1.bemhtml',
@@ -47,14 +48,14 @@ describe('walk', function () {
                         'block1__elem1_mod2.js': 'block1__elem1_mod2.js',
                     },
                     'block1.examples': {
-                        examples: {
+                        examples: { // redefinition level
                             example1: {
                                 'example1.css': 'example1.css'
                             }
                         }
                     },
                     'block1.tests': {
-                        blocks: {
+                        blocks: { // redefinition level
                             block1: {
                                 'block1.js': 'block1.js'
                             }
@@ -77,7 +78,7 @@ describe('walk', function () {
             excludeFiles: []
         });
 
-        scan(['.'], config)
+        scan(['./'], config)
             .then(function (res) {
                 res.must.be.eql(entities.fromLevels);
             })
@@ -93,6 +94,19 @@ describe('walk', function () {
         scan(['common.blocks/block2', 'desktop.blocks/block1/block1.examples/examples', 'another'], config)
             .then(function (res) {
                 res.must.be.eql(entities.fromTargets);
+            })
+            .then(done, done);
+    });
+
+    it('must load specified entity from the target given as a file', function (done) {
+        var config = new Configuration({
+            levels: ['*blocks'],
+            excludeFiles: []
+        });
+
+        scan(['desktop.blocks/block1/__elem1/block1__elem1_mod2.deps.js'], config)
+            .then(function (res) {
+                res.must.be.eql(entities.fromFile);
             })
             .then(done, done);
     });
