@@ -3,9 +3,9 @@ var mockFs = require('mock-fs'),
     Configuration = require('../../lib/configuration');
 
 var entities = {
-    fromLevels: require('./fixtures/walk/all-entities'),
-    fromTargets: require('./fixtures/walk/specified-entities'),
-    fromFile: require('./fixtures/walk/entity-from-file')
+    all: require('./fixtures/all-entities'),
+    specified: require('./fixtures/specified-entities'),
+    fromFile: require('./fixtures/entity-from-file')
 };
 
 describe('walk', function () {
@@ -80,7 +80,7 @@ describe('walk', function () {
 
         scan(['./'], config)
             .then(function (res) {
-                res.must.be.eql(entities.fromLevels);
+                res.must.be.eql(entities.all);
             })
             .then(done, done);
     });
@@ -93,12 +93,12 @@ describe('walk', function () {
 
         scan(['common.blocks/block2', 'desktop.blocks/block1/block1.examples/examples', 'another'], config)
             .then(function (res) {
-                res.must.be.eql(entities.fromTargets);
+                res.must.be.eql(entities.specified);
             })
             .then(done, done);
     });
 
-    it('must load specified entity from the target given as a file', function (done) {
+    it('must load specified entity from a target given as a file', function (done) {
         var config = new Configuration({
             levels: ['*blocks'],
             excludeFiles: []

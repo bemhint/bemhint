@@ -1,4 +1,4 @@
-var DepsChecker = require('../../../lib/rules/deps-checker'),
+var DepsChecker = require('../../lib/rules/deps-checker'),
     depsChecker = new DepsChecker();
 
 describe('deps-checker', function () {
@@ -208,7 +208,7 @@ describe('deps-checker', function () {
 
     describe('checker', function () {
         it('must find deps errors', function () {
-            var entities = require('../fixtures/rules/deps-checker/with-errors'),
+            var entities = require('./fixtures/deps-checker-errors'),
                 output = [
                     {
                         path: 'blocks/block1/block1.deps.js',
@@ -226,7 +226,7 @@ describe('deps-checker', function () {
         });
 
         it('must not find deps errors', function () {
-            var entities = require('../fixtures/rules/deps-checker/no-errors');
+            var entities = require('./fixtures/deps-checker-no-errors');
 
             depsChecker.check(entities).must.be.eql([]);
         });
