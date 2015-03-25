@@ -26,7 +26,7 @@ describe('configuration', function () {
             configPath: 'config.js'
         });
 
-        var output = [new RegExp('.*\\.blocks(/|$)', 'g')];
+        var output = [new RegExp('(.*\\.blocks)(/|$)')];
 
         config.getLevels().must.be.eql(output);
     });
