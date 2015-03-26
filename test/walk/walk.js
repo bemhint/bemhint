@@ -4,8 +4,7 @@ var mockFs = require('mock-fs'),
 
 var entities = {
     all: require('./fixtures/all-entities'),
-    specified: require('./fixtures/specified-entities'),
-    fromFile: require('./fixtures/entity-from-file')
+    specified: require('./fixtures/specified-entities')
 };
 
 describe('walk', function () {
@@ -91,22 +90,9 @@ describe('walk', function () {
             excludeFiles: []
         });
 
-        scan(['common.blocks/block2', 'desktop.blocks/block1/block1.examples/examples', 'another'], config)
+        scan(['./common.blocks/block2', 'desktop.blocks/block1/block1.examples/examples', 'another'], config)
             .then(function (res) {
                 res.must.be.eql(entities.specified);
-            })
-            .then(done, done);
-    });
-
-    it('must load specified entity from a target given as a file', function (done) {
-        var config = new Configuration({
-            levels: ['*blocks'],
-            excludeFiles: []
-        });
-
-        scan(['desktop.blocks/block1/__elem1/block1__elem1_mod2.deps.js'], config)
-            .then(function (res) {
-                res.must.be.eql(entities.fromFile);
             })
             .then(done, done);
     });

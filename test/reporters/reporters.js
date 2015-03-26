@@ -78,20 +78,14 @@ describe('reporters', function () {
             var output = fs.readFileSync(path.join(__dirname, 'fixtures/bem-errors.html'), 'utf-8');
 
             reporters.mk('html').write(input);
-                // .then(function () {
-                    assertHtmlDiff(fs.writeFileSync, output);
-                // })
-                // .then(done, done);
+            assertHtmlDiff(fs.writeFileSync, output);
         });
 
         it('must NOT report BEM errors', function () {
             var output = fs.readFileSync(path.join(__dirname, 'fixtures/no-bem-errors.html'), 'utf-8');
 
             reporters.mk('html').write([]);
-                // .then(function () {
-                    assertHtmlDiff(fs.writeFileSync, output);
-                // })
-                // .then(done, done);
+            assertHtmlDiff(fs.writeFileSync, output);
         });
     });
 });
