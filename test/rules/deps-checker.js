@@ -3,7 +3,7 @@ var DepsChecker = require('../../lib/rules/deps-checker'),
 
 describe('deps-checker', function () {
     describe('utils', function () {
-        describe('actual deps', function () {
+        describe('get actual deps', function () {
             it('must handle a case when deps are \'undefined\'', function () {
                 depsChecker._getActualDeps(undefined).must.be.eql({});
             });

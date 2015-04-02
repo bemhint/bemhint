@@ -1,6 +1,5 @@
 var path = require('path'),
     fs = require('fs'),
-    // qfs = require('q-io/fs'),
     sinon = require('sinon'),
     HtmlDiffer = require('html-differ').HtmlDiffer,
     htmlDiffer = new HtmlDiffer(),
