@@ -14,8 +14,8 @@
     "bem linter",
     "deps linter"
   ],
-  "homepage": "https://github.com/eGavr/bemhint",
-  "bugs": "https://github.com/eGavr/bemhint/issues",
+  "homepage": "https://github.com/bem/bemhint",
+  "bugs": "https://github.com/bem/bemhint/issues",
   "author": {
     "name": "Evgeniy Gavryushin",
     "email": "job.egavr@yandex.ru",
@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/eGavr/bemhint.git"
+    "url": "git://github.com/bem/bemhint.git"
   },
   "dependencies": {
     "bem-naming": "0.5.1",
@@ -66,7 +66,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/eGavr/bemhint/blob/master/LICENSE"
+      "url": "https://github.com/bem/bemhint/blob/master/LICENSE"
     }
   ]
 }
