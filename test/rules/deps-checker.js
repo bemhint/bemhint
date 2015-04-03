@@ -2,7 +2,7 @@ var DepsChecker = require('../../lib/rules/deps-checker'),
     depsChecker = new DepsChecker();
 
 describe('deps-checker', function () {
-    describe('utils', function () {
+    describe('private API', function () {
         describe('get actual deps', function () {
             it('must handle a case when deps are \'undefined\'', function () {
                 depsChecker._getActualDeps(undefined).must.be.eql({});
@@ -206,29 +206,66 @@ describe('deps-checker', function () {
         });
     });
 
-    describe('checker', function () {
-        it('must find deps errors', function () {
-            var entities = require('./fixtures/deps-checker-errors'),
-                output = [
-                    {
-                        path: 'blocks/block1/block1.deps.js',
-                        actual: {},
-                        expected: { block: 'i-bem', elems: ['dom', 'html', 'i18n'] }
-                    },
-                    {
-                        path: 'blocks/block2',
-                        actual: 'No deps file block2.deps.js',
-                        expected: { block: 'i-bem' }
+    describe('public API', function () {
+        it('must find deps errors when there is no file \'*.deps.js\'', function () {
+            var entity = {
+                    js: {
+                        name: 'block1.js',
+                        tech: 'js',
+                        path: 'blocks/block1/block1.js',
+                        content: 'BEM.decl()'
                     }
-                ];
+                },
+                output = {
+                    path: 'blocks/block1',
+                    actual: 'No deps file block1.deps.js',
+                    expected: { block: 'i-bem' }
+                };
 
-            depsChecker.check(entities).must.be.eql(output);
+            depsChecker.checkEntity(entity).must.be.eql(output);
         });
 
-        it('must not find deps errors', function () {
-            var entities = require('./fixtures/deps-checker-no-errors');
+        it('must find deps errors when there are no expected deps', function () {
+            var entity = {
+                    js: {
+                        name: 'block1.js',
+                        tech: 'js',
+                        path: 'blocks/block1/block1.js',
+                        content: 'BEM.decl()'
+                    },
+                    'deps.js': {
+                        name: 'block1.js',
+                        tech: 'deps.js',
+                        path: 'blocks/block1/block1.deps.js',
+                        content: '({ mustDeps: [] })'
+                    }
+                },
+                output = {
+                    path: 'blocks/block1/block1.deps.js',
+                    actual: {},
+                    expected: { block: 'i-bem' }
+                };
 
-            depsChecker.check(entities).must.be.eql([]);
+            depsChecker.checkEntity(entity).must.be.eql(output);
+        });
+
+        it('must NOT find deps errors', function () {
+            var entity = {
+                    js: {
+                        name: 'block1.js',
+                        tech: 'js',
+                        path: 'blocks/block1/block1.js',
+                        content: 'BEM.decl()'
+                    },
+                    'deps.js': {
+                        name: 'block1.js',
+                        tech: 'deps.js',
+                        path: 'blocks/block1/block1.deps.js',
+                        content: '({ mustDeps: \'i-bem\' })'
+                    }
+                };
+
+            depsChecker.checkEntity(entity).must.be(false);
         });
     });
 });
