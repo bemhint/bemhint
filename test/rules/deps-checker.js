@@ -55,8 +55,22 @@ describe('deps-checker', function () {
                 depsChecker._getExpectedDeps(input.js, input.bemhtml).must.be.eql({});
             });
 
-            it('must get block \'i-bem\'', function () {
+            it('must get block \'i-bem\' (decl)', function () {
                 var input = { js: { content: 'js BEM.decl( js' } },
+                    output = { block: 'i-bem', elems: [] };
+
+                depsChecker._getExpectedDeps(input.js, input.bemhtml).must.be.eql(output);
+            });
+
+            it('must get block \'i-bem\' (channel)', function () {
+                var input = { js: { content: 'js BEM.channel js' } },
+                    output = { block: 'i-bem', elems: [] };
+
+                depsChecker._getExpectedDeps(input.js, input.bemhtml).must.be.eql(output);
+            });
+
+            it('must get block \'i-bem\' (decl and channel)', function () {
+                var input = { js: { content: 'js BEM.decl( && BEM.channel js' } },
                     output = { block: 'i-bem', elems: [] };
 
                 depsChecker._getExpectedDeps(input.js, input.bemhtml).must.be.eql(output);
