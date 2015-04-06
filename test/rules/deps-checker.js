@@ -1,4 +1,5 @@
-var DepsChecker = require('../../lib/rules/deps-checker'),
+var demand = require('must'),
+    DepsChecker = require('../../lib/rules/deps-checker'),
     depsChecker = new DepsChecker();
 
 describe('deps-checker', function () {
@@ -279,7 +280,7 @@ describe('deps-checker', function () {
                     }
                 };
 
-            depsChecker.checkEntity(entity).must.be(false);
+            demand(depsChecker.checkEntity(entity)).be.undefined();
         });
 
         it('must handle self dependency of block \'i-bem\'', function () {
@@ -318,8 +319,8 @@ describe('deps-checker', function () {
                     }
                 };
 
-            depsChecker.checkEntity(entity1).must.be(false);
-            depsChecker.checkEntity(entity2).must.be(false);
+            demand(depsChecker.checkEntity(entity1)).be.undefined();
+            demand(depsChecker.checkEntity(entity2)).be.undefined();
         });
     });
 });
