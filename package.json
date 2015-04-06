@@ -52,12 +52,9 @@
     "sinon": "1.14.1"
   },
   "scripts": {
-    "test": "npm run lint && npm run unit-test && npm run walk-test && npm run rules-test && npm run cover",
+    "test": "npm run lint && mocha test && npm run cover",
     "lint": "jshint . && jscs -c .jscs.js .",
-    "unit-test": "mocha test/unit/ test/reporters/",
-    "walk-test": "mocha test/walk/",
-    "rules-test": "mocha test/rules/",
-    "cover": "istanbul cover _mocha -- test/unit/ test/reporters test/walk/ test/rules/"
+    "cover": "istanbul cover _mocha -- test"
   },
   "engines": {
     "node": ">=0.8.0",
