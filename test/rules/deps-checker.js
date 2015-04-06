@@ -234,7 +234,7 @@ describe('deps-checker', function () {
                         content: 'BEM.decl()'
                     },
                     'deps.js': {
-                        name: 'block1.js',
+                        name: 'block1.deps.js',
                         tech: 'deps.js',
                         path: 'blocks/block1/block1.deps.js',
                         content: '({ mustDeps: [] })'
@@ -258,7 +258,7 @@ describe('deps-checker', function () {
                         content: 'BEM.decl()'
                     },
                     'deps.js': {
-                        name: 'block1.js',
+                        name: 'block1.deps.js',
                         tech: 'deps.js',
                         path: 'blocks/block1/block1.deps.js',
                         content: '({ mustDeps: \'i-bem\' })'
@@ -266,6 +266,46 @@ describe('deps-checker', function () {
                 };
 
             depsChecker.checkEntity(entity).must.be(false);
+        });
+
+        it('must handle self dependency of block \'i-bem\'', function () {
+            var entity1 = {
+                    js: {
+                        name: 'i-bem.js',
+                        tech: 'js',
+                        path: 'blocks/i-bem/i-bem.js',
+                        content: 'BEM.decl()'
+                    },
+                    'deps.js': {
+                        name: 'block1.js',
+                        tech: 'deps.js',
+                        path: 'blocks/block1/block1.deps.js',
+                        content: '({ mustDeps: \'blah\' })'
+                    }
+                },
+                entity2 = {
+                    bemhtml: {
+                        name: 'i-bem__html.bemhtml',
+                        tech: 'bemhtml',
+                        path: 'blocks/i-bem/__html/i-bem__html.bemhtml',
+                        content: 'bemhtml content'
+                    },
+                    js: {
+                        name: 'i-bem__elem.js',
+                        tech: 'js',
+                        path: 'blocks/i-bem/__html/i-bem__html.js',
+                        content: 'BEM.decl()'
+                    },
+                    'deps.js': {
+                        name: 'i-bem__html.deps.js',
+                        tech: 'deps.js',
+                        path: 'blocks/i-bem/__html/i-bem__html.deps.js',
+                        content: '({ mustDeps: \'i-bem\' })'
+                    }
+                };
+
+            depsChecker.checkEntity(entity1).must.be(false);
+            depsChecker.checkEntity(entity2).must.be(false);
         });
     });
 });
