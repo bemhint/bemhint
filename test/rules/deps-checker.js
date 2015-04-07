@@ -77,6 +77,13 @@ describe('deps-checker', function () {
                 depsChecker._getExpectedDeps(input.js, input.bemhtml).must.be.eql(output);
             });
 
+            it('must get block \'i-bem\' (blocks)', function () {
+                var input = { js: { content: 'js BEM.blocks[\'...\'] js' } },
+                    output = { block: 'i-bem', elems: [] };
+
+                depsChecker._getExpectedDeps(input.js, input.bemhtml).must.be.eql(output);
+            });
+
             it('must get block \'i-bem\' and elem \'html\' from JS content', function () {
                 var input = { js: { content: 'js BEM.HTML js' } },
                     output = { block: 'i-bem', elems: ['html'] };
