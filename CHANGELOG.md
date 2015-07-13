@@ -1,6 +1,11 @@
 History of changes
 ==================
 
+0.0.3
+-----
+
+* Supported techs with new `bemhtml` syntax.
+
 0.0.2
 -----
 
