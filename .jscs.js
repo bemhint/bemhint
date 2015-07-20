@@ -4,53 +4,42 @@ module.exports = {
         'coverage/**',
         'example/**'
     ],
-    requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
-    requireSpaceBeforeBlockStatements: true,
-    requireSpacesInConditionalExpression: true,
-    requireSpacesInFunction: {
-        beforeOpeningCurlyBrace: true
-    },
-    requireSpacesInAnonymousFunctionExpression: {
+    requireCurlyBraces: ['if', 'else', 'for', 'while', 'do'],
+    requireSpaceAfterKeywords: ['do', 'else'],
+    disallowSpaceAfterKeywords: ['if', 'for', 'while', 'switch'],
+    disallowSpacesInFunction: {
         beforeOpeningRoundBrace: true
     },
-    disallowSpacesInNamedFunctionExpression: {
-        beforeOpeningRoundBrace: true
-    },
-    requireBlocksOnNewline: 1,
-    disallowPaddingNewlinesInBlocks: true,
-    disallowSpacesInsideArrayBrackets: 'nested',
-    disallowSpacesInsideParentheses: true,
-    requireSpacesInsideObjectBrackets: 'all',
-    disallowQuotedKeysInObjects: 'allButReserved',
+    requireParenthesesAroundIIFE: true,
+    disallowSpacesInsideArrayBrackets: true,
+    disallowSpacesInsideObjectBrackets: true,
     disallowSpaceAfterObjectKeys: true,
-    requireCommaBeforeLineBreak: true,
-    requireOperatorBeforeLineBreak: true,
-    disallowSpaceAfterPrefixUnaryOperators: true,
-    disallowSpaceBeforePostfixUnaryOperators: true,
-    requireSpaceBeforeBinaryOperators: true,
-    requireSpaceAfterBinaryOperators: true,
-    requireCamelCaseOrUpperCaseIdentifiers: true,
+    requireSpaceBeforeObjectValues: true,
+    disallowSpaceAfterPrefixUnaryOperators: ['++', '--', '+', '-', '~', '!'],
+    disallowSpaceBeforePostfixUnaryOperators: ['++', '--'],
+    disallowSpaceBeforeBinaryOperators: [','],
+    requireSpaceBeforeBinaryOperators: ['+', '-', '/', '*', '=', '==', '===', '!=', '!==', '>', '>=', '<', '<=', '&&', '||'],
+    requireSpaceAfterBinaryOperators: [',', '+', '-', '/', '*', '=', '==', '===', '!=', '!==', '>', '>=', '<', '<=', '&&', '||'],
+    requireSpaceBeforeBlockStatements: true,
     disallowKeywords: ['with'],
-    disallowMultipleLineStrings: true,
     disallowMultipleLineBreaks: true,
-    validateLineBreaks: 'LF',
-    validateQuoteMarks: {
-        mark: '\'',
-        escape: true
-    },
-    disallowMixedSpacesAndTabs: true,
-    disallowTrailingWhitespace: true,
-    disallowKeywordsOnNewLine: ['else', 'catch'],
-    requireLineFeedAtFileEnd: true,
-    maximumLineLength: 120,
+    disallowKeywordsOnNewLine: ['else'],
+    disallowQuotedKeysInObjects: 'allButReserved',
     requireCapitalizedConstructors: true,
-    safeContextKeyword: ['_this'],
-    disallowYodaConditions: true,
+    requireLineFeedAtFileEnd: true,
+    disallowPaddingNewlinesInBlocks: true,
+    disallowTrailingWhitespace: true,
+    disallowTrailingComma: true,
+    requireSpacesInConditionalExpression: {
+        afterTest: true,
+        beforeConsequent: true,
+        afterConsequent: true,
+        beforeAlternate: true
+    },
+    requireSpaceAfterLineComment: {allExcept: ['#', '=', '/']},
     validateJSDoc: {
         checkParamNames: true,
         checkRedundantParams: true,
         requireParamTypes: true
-    },
-    requireSpaceAfterLineComment: true,
-    disallowNewlineBeforeBlockStatements: true
-};
+    }
+}

@@ -1,0 +1,35 @@
+.body {
+    font-family: Verdana, sans-serif;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.error {
+    margin-bottom: 20px;
+}
+
+.error__message {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.error__path {
+    display: inline-block;
+    color: green;
+}
+
+.error__value {
+    display: block;
+    margin-top: 5px;
+    font-style: italic;
+
+}
+
+.error__footer {
+    width: 200px;
+    margin-top: 10px;
+    border-bottom: 1px solid #708090;
+}
