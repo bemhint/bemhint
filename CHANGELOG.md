@@ -1,6 +1,11 @@
 History of changes
 ==================
 
+0.1.1
+-----
+
+* Fixed path to the main file in `package.json`.
+
 0.1.0
 -----
 
