@@ -1,25 +1,45 @@
 {
-    "bitwise": true,
-    "eqeqeq": true,
-    "es3": true,
-    "forin": true,
-    "freeze": true,
-    "immed": true,
-    "latedef": "nofucn",
-    "noarg": true,
-    "noempty": true,
-    "nonbsp": true,
-    "nonew": true,
-    "undef": true,
-    "unused": true,
-
-    "browser": true,
     "node": true,
+    "mocha": true,
 
     "globals": {
-        "modules": false
+        "JSON": false,
+        "describe": false,
+        "xdescribe": false,
+        "before": false,
+        "after": false,
+        "beforeEach": false,
+        "afterEach": false,
+        "it": false,
+        "xit": false,
+        "jasmine": false,
+        "expect": false,
+        "spyOn": false
     },
 
+    "curly": true,
+    "camelcase": true,
+    "eqeqeq": true,
+    "immed": true,
+    "latedef": "nofunc",
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonew": true,
+    "quotmark": "single",
+    "undef": true,
+    "unused": "vars",
+    "strict": false,
+    "trailing": true,
+    "maxparams": 4,
+    "maxdepth": 4,
+    "maxlen": 120,
+
     "expr": true,
-    "sub": true
+    "lastsemic": true,
+    "laxbreak": true,
+    "sub": true,
+
+    "nomen": false,
+    "onevar": false
 }

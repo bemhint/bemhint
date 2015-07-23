@@ -4,15 +4,8 @@
   "description": "BEM hint",
   "keywords": [
     "bem",
-    "hint",
     "deps",
-    "lint",
-    "linter",
-    "bem hint",
-    "bem lint",
-    "deps lint",
-    "bem linter",
-    "deps linter"
+    "bemhint"
   ],
   "homepage": "https://github.com/bem/bemhint",
   "bugs": "https://github.com/bem/bemhint/issues",
@@ -30,29 +23,27 @@
     "url": "git://github.com/bem/bemhint.git"
   },
   "dependencies": {
-    "bem-naming": "0.5.1",
+    "bem-naming": "~0.5.1",
     "bem-walk": "git://github.com/andrewblond/bem-walk#dcfeaf5e5a8eec541ad00e45d8dd1183f991dd92",
-    "coa": "0.4.1",
-    "colors": "1.0.3",
-    "handlebars": "3.0.0",
-    "inherit": "2.2.2",
-    "lodash": "3.5.0",
-    "minimatch": "2.0.1",
-    "vow": "0.4.9",
-    "vow-fs": "0.3.4"
+    "coa": "~0.4.1",
+    "colors": "~1.0.3",
+    "handlebars": "~3.0.0",
+    "inherit": "~2.2.2",
+    "lodash": "~3.5.0",
+    "minimatch": "~2.0.1",
+    "normalize-deps": "git://github.com/eGavr/normalize-deps#bemhint",
+    "vow": "~0.4.9",
+    "vow-fs": "~0.3.4"
   },
   "devDependencies": {
-    "html-differ": "1.3.0",
-    "istanbul": "0.3.10",
-    "jscs": "1.9.0",
-    "jshint": "2.5.11",
-    "mocha": "1.18.2",
-    "mock-fs": "2.3.2",
-    "must": "0.12.0",
-    "sinon": "1.14.1"
+    "istanbul": "~0.3.10",
+    "jscs": "~1.9.0",
+    "jshint": "~2.5.11",
+    "mocha": "~1.18.2",
+    "sinon": "~1.14.1"
   },
   "scripts": {
-    "test": "npm run lint && mocha test && npm run cover",
+    "test": "npm run lint",
     "lint": "jshint . && jscs -c .jscs.js .",
     "cover": "istanbul cover _mocha -- test"
   },
