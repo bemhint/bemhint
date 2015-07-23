@@ -1,6 +1,11 @@
 History of changes
 ==================
 
+0.1.0
+-----
+
+* Supported plugins and rules.
+
 0.0.3
 -----
 
