@@ -8,12 +8,12 @@
     </style>
 </head>
 <body>
-    <div class="title">
-        <p><b>{{title}}</b>{{#if errors.length}}{{errors.length}}{{/if}}</p>
+    <div class="header">
+        <p class="header__title">{{title}}</p> {{#if errors.length}}{{errors.length}}{{/if}}
     </div>
 {{#errors}}
     <div class="error">
-        <div class="error__message">{{msg}} at </div>
+        <div class="error__message">{{msg}}</div> at
         <div class="error__path">{{path}}</div> :
         <div class="error__value">{{value}}</div>
         <div class="error__footer"></div>
