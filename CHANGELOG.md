@@ -1,6 +1,14 @@
 History of changes
 ==================
 
+0.2.0
+-----
+
+* Added the API for detecting of redundant dependencies in `*.deps.js`.
+* Fixed method `Entity.prototype.matchesConditions` (smarter ignoring of comments during the match).
+* Updated HTML reporter.
+* Added JSDoc.
+
 0.1.1
 -----
 
