@@ -2,8 +2,13 @@
     font-family: Verdana, sans-serif;
 }
 
-.title {
+.header {
     margin-bottom: 20px;
+}
+
+.header__title {
+    font-weight: bold;
+    display: inline-block;
 }
 
 .error {
