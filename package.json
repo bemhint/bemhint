@@ -2,59 +2,44 @@
   "name": "bemhint",
   "version": "0.2.1",
   "description": "BEM hint",
-  "keywords": [
-    "bem",
-    "deps",
-    "bemhint"
-  ],
-  "homepage": "https://github.com/bem/bemhint",
-  "bugs": "https://github.com/bem/bemhint/issues",
-  "author": {
-    "name": "Evgeniy Gavryushin",
-    "email": "job.egavr@yandex.ru",
-    "url": "https://github.com/eGavr"
-  },
-  "main": "./lib/index.js",
-  "bin": {
-    "bemhint": "./bin/bemhint"
-  },
+  "author": "Eugene Gavryushin <job.egavr@yandex.ru>",
   "repository": {
     "type": "git",
     "url": "git://github.com/bem/bemhint.git"
-  },
-  "dependencies": {
-    "bem-naming": "~0.5.1",
-    "bem-walk": "git://github.com/andrewblond/bem-walk#dcfeaf5e5a8eec541ad00e45d8dd1183f991dd92",
-    "coa": "~0.4.1",
-    "colors": "~1.0.3",
-    "handlebars": "~3.0.0",
-    "inherit": "~2.2.2",
-    "lodash": "~3.5.0",
-    "minimatch": "~2.0.1",
-    "normalize-deps": "git://github.com/eGavr/normalize-deps#bemhint",
-    "vow": "~0.4.9",
-    "vow-fs": "~0.3.4"
-  },
-  "devDependencies": {
-    "istanbul": "~0.3.10",
-    "jscs": "~1.9.0",
-    "jshint": "~2.5.11",
-    "mocha": "~1.18.2",
-    "sinon": "~1.14.1"
-  },
-  "scripts": {
-    "test": "npm run lint",
-    "lint": "jshint . && jscs -c .jscs.js .",
-    "cover": "istanbul cover _mocha -- test"
-  },
-  "engines": {
-    "node": ">=0.8.0",
-    "npm": ">=1.2.10"
   },
   "licenses": [
     {
       "type": "MIT",
       "url": "https://github.com/bem/bemhint/blob/master/LICENSE"
     }
-  ]
+  ],
+  "bin": {
+    "bemhint": "./bin/bemhint"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "bem-naming": "^0.5.1",
+    "bem-walk": "^1.0.0-alpha1",
+    "chalk": "^1.1.1",
+    "coa": "^1.0.1",
+    "inherit": "^2.2.2",
+    "lodash": "^3.10.1",
+    "minimatch": "^2.0.10",
+    "q": "^1.4.1",
+    "q-io": "^1.13.1"
+  },
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
+    "jscs": "^2.6.0",
+    "jshint": "^2.9.1-rc1",
+    "mocha": "^2.3.2",
+    "sinon": "^1.16.1",
+    "sinon-chai": "^2.8.0"
+  },
+  "scripts": {
+    "lint": "jshint . && jscs .",
+    "test": "npm run lint && npm run unit",
+    "unit": "mocha test/"
+  }
 }
