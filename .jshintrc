@@ -1,45 +1,24 @@
 {
-    "node": true,
-    "mocha": true,
-
-    "globals": {
-        "JSON": false,
-        "describe": false,
-        "xdescribe": false,
-        "before": false,
-        "after": false,
-        "beforeEach": false,
-        "afterEach": false,
-        "it": false,
-        "xit": false,
-        "jasmine": false,
-        "expect": false,
-        "spyOn": false
-    },
-
+    "bitwise": true,
     "curly": true,
-    "camelcase": true,
     "eqeqeq": true,
-    "immed": true,
+    "forin": true,
+    "freeze": true,
+    "futurehostile": true,
     "latedef": "nofunc",
-    "newcap": true,
+    "maxdepth": 2,
+    "maxparams": 2,
     "noarg": true,
-    "noempty": true,
+    "nocomma": true,
+    "nonbsp": true,
     "nonew": true,
-    "quotmark": "single",
+    "singleGroups": true,
     "undef": true,
-    "unused": "vars",
-    "strict": false,
-    "trailing": true,
-    "maxparams": 4,
-    "maxdepth": 4,
-    "maxlen": 120,
+    "unused": true,
 
-    "expr": true,
-    "lastsemic": true,
+    "mocha": true,
+    "node": true,
+
     "laxbreak": true,
-    "sub": true,
-
-    "nomen": false,
-    "onevar": false
+    "expr": true
 }
