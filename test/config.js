@@ -3,19 +3,13 @@ var fs = require('fs'),
     q = require('q'),
     qfs = require('q-io/fs'),
     sinon = require('sinon'),
-    Config = require('../lib/config'),
-    utils = require('../lib/utils');
+    Config = require('../lib/config');
 
 describe('Config.prototype', function() {
     var sandbox = sinon.sandbox.create(),
         config;
 
     beforeEach(function() {
-        sandbox.stub(fs, 'statSync');
-        sandbox.stub(qfs);
-
-        qfs.listDirectoryTree.returns(q([]));
-
         config = new Config();
     });
 
@@ -29,6 +23,14 @@ describe('Config.prototype', function() {
     }
 
     describe('.getLevels', function() {
+        beforeEach(function() {
+            sandbox.stub(fs, 'statSync');
+
+            sandbox.stub(qfs);
+
+            qfs.listDirectoryTree.returns(q([]));
+        });
+
         it('should get the last level in a target dir path', function() {
             setTargetType_('dir');
 
@@ -170,6 +172,10 @@ describe('Config.prototype', function() {
     });
 
     describe('.isTargetPath', function() {
+        beforeEach(function() {
+            sandbox.stub(fs, 'statSync');
+        });
+
         it('should be a target path when an input target is a dir', function() {
             setTargetType_('dir');
 
@@ -236,27 +242,52 @@ describe('Config.prototype', function() {
     });
 
     describe('.requirePlugins', function() {
-        beforeEach(function() {
-            sandbox.stub(utils, 'requirePlugin');
+        ///
+        function createConfig(pluginConfig) {
+            return new Config([], {
+                configPath: './test/fixtures/.bemhint',
+                config: {
+                    plugins: {
+                        './plugins/some-plugin': pluginConfig
+                    }
+                }
+            });
+        }
+
+        it('should properly resolve relative path', function() {
+            config = createConfig(true);
+
+            config.requirePlugins()[0]._module.should.be.equal(require('./fixtures/plugins/some-plugin'));
         });
 
-        it('should require local plugins', function() {
-            config = new Config([], {
-                configPath: '/config/path/.bemhint',
-                config: {plugins: ['./some/plugin']}
+        describe('config', function() {
+            it('should skip plugin with `false` config', function() {
+                config = createConfig(false);
+
+                config.requirePlugins().should.be.empty;
             });
 
-            config.requirePlugins();
+            it('should consider `true` as `{}`', function() {
+                config = createConfig(true);
 
-            utils.requirePlugin.should.be.calledWith('/config/path/some/plugin');
-        });
+                config.requirePlugins()[0].config.should.be.eql({});
+            });
 
-        it('should require plugins from `node_modules`', function() {
-            config = new Config([], {config: {plugins: ['some/plugin']}});
+            it('should throw in case of wrong config', function() {
+                config = createConfig('wrong config');
 
-            config.requirePlugins();
+                (function() {
+                    config.requirePlugins();
+                }).should.throw();
+            });
 
-            utils.requirePlugin.should.be.calledWith('some/plugin');
+            it('should properly pass config to plugin', function() {
+                var pluginConfig = {'some-opt': 'some-val'};
+
+                config = createConfig(pluginConfig);
+
+                config.requirePlugins()[0].config.should.be.equal(pluginConfig);
+            });
         });
     });
 });

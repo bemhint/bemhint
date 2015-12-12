@@ -1,5 +1,4 @@
-var q = require('q'),
-    sinon = require('sinon'),
+var sinon = require('sinon'),
     Entity = require('../lib/entity'),
     PluginsRunner = require('../lib/plugins-runner');
 
@@ -26,36 +25,6 @@ describe('PluginsRunner', function() {
     });
 
     describe('.prototype', function() {
-        describe('.runPlugin', function() {
-            it('should throw if a plugin is not a function', function() {
-                pluginsRunner = new PluginsRunner();
-
-                (function() {
-                    pluginsRunner.runPlugin('not.a.function');
-                }).should.throw();
-            });
-
-            it('should run a plugin', function() {
-                pluginsRunner = new PluginsRunner([[]]);
-
-                var plugin = sinon.spy();
-
-                pluginsRunner.runPlugin(plugin);
-
-                plugin.should.be.calledWith([sinon.match.instanceOf(Entity)]);
-            });
-
-            it('should run a plugin which returns a promise', function() {
-                pluginsRunner = new PluginsRunner();
-
-                var plugin = sinon.stub();
-                plugin.returns(q());
-
-                pluginsRunner.runPlugin(plugin)
-                    .should.be.fulfilled;
-            });
-        });
-
         describe('.getErrors', function() {
             beforeEach(function() {
                 sandbox.stub(Entity.prototype, 'getErrors');
