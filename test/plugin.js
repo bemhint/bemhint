@@ -54,6 +54,13 @@ describe('Plugin.prototype', function() {
                 spy.should.not.be.calledWith({name: 'some-tech'});
             });
 
+            it('should consider omitting of `*` in `techs` as `{*: false}`', function() {
+                runPlugin({'some-tech': true}, [['some-tech', 'another-tech'], ['some-tech']]);
+
+                spy.should.be.calledTwice;
+                spy.should.not.be.calledWith({name: 'another-tech'});
+            });
+
             it('should properly merge techs configs', function() {
                 runPlugin(
                     {
