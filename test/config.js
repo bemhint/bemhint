@@ -254,12 +254,6 @@ describe('Config.prototype', function() {
             });
         }
 
-        it('should properly resolve relative path', function() {
-            config = createConfig(true);
-
-            config.requirePlugins()[0]._module.should.be.equal(require('./fixtures/plugins/some-plugin'));
-        });
-
         describe('config', function() {
             it('should skip plugin with `false` config', function() {
                 config = createConfig(false);
