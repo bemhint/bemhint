@@ -20,14 +20,4 @@ describe('utils', function() {
             utils.hasGlobstarEnding('some/path/*').should.be.false;
         });
     });
-
-    describe('.hasDotBeginning', function() {
-        it('should be a path with a dot at the begining', function() {
-            utils.hasDotBeginning('./some/path').should.be.true;
-        });
-
-        it('should not be a path with a dot at the begining', function() {
-            utils.hasDotBeginning('some/path').should.be.false;
-        });
-    });
 });
