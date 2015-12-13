@@ -1,1 +1,1 @@
-module.exports = function() {};
+exports.forEntityTech = function() {};

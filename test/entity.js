@@ -14,13 +14,13 @@ describe('Entity.prototype', function() {
 
     describe('.getTechByName', function() {
         it('should get a tech by name', function() {
-            entity = new Entity([{tech: 'first.tech'}, {tech: 'second.tech'}]);
+            entity = new Entity([{name: 'first.tech'}, {name: 'second.tech'}]);
 
-            entity.getTechByName('first.tech').should.be.eql({tech: 'first.tech'});
+            entity.getTechByName('first.tech').should.be.eql({name: 'first.tech'});
         });
 
         it('should not find a tech by name', function() {
-            entity = new Entity([{tech: 'some.tech'}]);
+            entity = new Entity([{name: 'some.tech'}]);
 
             should.not.exist(entity.getTechByName('another.tech'));
         });
@@ -28,10 +28,10 @@ describe('Entity.prototype', function() {
 
     describe('.addError', function() {
         it('should throw without an error msg', function() {
-            entity = new Entity([{tech: 'some.tech'}]);
+            entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
-                entity.addError({tech: 'some.tech'});
+                entity.addError({name: 'some.tech'});
             }).should.throw();
         });
 
@@ -47,28 +47,28 @@ describe('Entity.prototype', function() {
             entity = new Entity();
 
             (function() {
-                entity.addError({msg: 12345, tech: 'some.tech'});
+                entity.addError({msg: 12345, name: 'some.tech'});
             }).should.throw();
         });
 
         it('should throw if an entity is not implemented in a given tech', function() {
-            entity = new Entity([{tech: 'some.tech'}]);
+            entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
-                entity.addError({msg: 'some-msg', tech: 'another.tech'});
+                entity.addError({msg: 'some-msg', name: 'another.tech'});
             }).should.throw();
         });
 
         it('should throw if an error value is not an object or a string', function() {
-            entity = new Entity([{tech: 'some.tech'}]);
+            entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
-                entity.addError({msg: 'some-msg', tech: 'some.tech', value: 12345});
+                entity.addError({msg: 'some-msg', name: 'some.tech', value: 12345});
             }).should.throw();
         });
 
         it('should not throw if an error value is a plain object', function() {
-            entity = new Entity([{tech: 'some.tech'}]);
+            entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
                 entity.addError({msg: 'some-msg', tech: 'some.tech', value: {}});
@@ -76,7 +76,7 @@ describe('Entity.prototype', function() {
         });
 
         it('should not throw if an error value is an array', function() {
-            entity = new Entity([{tech: 'some.tech'}]);
+            entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
                 entity.addError({msg: 'some-msg', tech: 'some.tech', value: []});
@@ -84,7 +84,7 @@ describe('Entity.prototype', function() {
         });
 
         it('should not throw if an error value is a string', function() {
-            entity = new Entity([{tech: 'some.tech'}]);
+            entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
                 entity.addError({msg: 'some-msg', tech: 'some.tech', value: 'some-value'});
@@ -92,7 +92,7 @@ describe('Entity.prototype', function() {
         });
 
         it('should not throw without an error value', function() {
-            entity = new Entity([{tech: 'some.tech'}]);
+            entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
                 entity.addError({msg: 'some-msg', tech: 'some.tech'});
@@ -102,7 +102,7 @@ describe('Entity.prototype', function() {
 
     describe('.getErrors', function() {
         it('should get errors', function() {
-            entity = new Entity([{path: 'some/path', tech: 'some.tech'}]);
+            entity = new Entity([{path: 'some/path', name: 'some.tech'}]);
 
             entity.addError({msg: 'some-msg', tech: 'some.tech', value: 'some-value'});
 
