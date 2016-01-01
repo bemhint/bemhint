@@ -7,7 +7,7 @@
     "futurehostile": true,
     "latedef": "nofunc",
     "maxdepth": 2,
-    "maxparams": 2,
+    "maxparams": 3,
     "noarg": true,
     "nocomma": true,
     "nonbsp": true,

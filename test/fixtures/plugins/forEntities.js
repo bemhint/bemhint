@@ -1,0 +1,1 @@
+exports.forEntities = function() {};
