@@ -1,1 +1,0 @@
-exports.forEntityTech = function() {};
