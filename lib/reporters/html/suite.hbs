@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>bemhint</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+{{stylesheet}}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p class="header__title">{{title}}</p> {{#if errors.length}}{{errors.length}}{{/if}}
+    </div>
+{{#errors}}
+    <div class="error">
+        <div class="error__message">{{msg}}</div> at
+        <div class="error__path">{{path}}</div> {{#if value}}:{{/if}}
+        <div class="error__value">{{value}}</div>
+    </div>
+{{/errors}}
+</body>
+</html>
