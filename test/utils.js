@@ -20,4 +20,11 @@ describe('utils', function() {
             utils.hasGlobstarEnding('some/path/*').should.be.false;
         });
     });
+
+    describe('.replaceTech', function() {
+        it('should replace tech in a given path', function() {
+            utils.replaceTech('/some/path/file.some.tech', 'another.tech')
+                .should.be.equal('/some/path/file.another.tech');
+        });
+    });
 });
