@@ -5,18 +5,18 @@ describe('PluginConfig', function() {
         return new PluginConfig(
             opts.path || 'some-path',
             opts.hasOwnProperty('customConfig') ? opts.customConfig : true,
-            opts.predefinedConfig
+            opts.predefinedConfig && function() {return opts.predefinedConfig;}
         );
     }
 
     it('should use predefined config if it is specified', function() {
-        createConfig_({predefinedConfig: function() {return {'some-key': 'some-val'};}})
+        createConfig_({predefinedConfig: {'some-key': 'some-val'}})
             .getConfig().should.be.eql({'some-key': 'some-val', techs: {'*': {}}});
     });
 
     it('should throw if predefined config is invalid', function() {
         (function() {
-            createConfig_({path: 'plugin-path', predefinedConfig: function() {return 'bad config';}});
+            createConfig_({path: 'plugin-path', predefinedConfig: 'bad config'});
         }).should.throw('Invalid config for plugin plugin-path');
     });
 
@@ -25,10 +25,15 @@ describe('PluginConfig', function() {
             .getConfig().should.be.eql({'some-key': 'some-val', techs: {'*': {}}});
     });
 
-    it('should throw if a custom config is invalid and a predefined config is not specified', function() {
+    it('should throw if a custom config is invalid', function() {
         (function() {
             createConfig_({path: 'plugin-path', customConfig: 'bad config'});
         }).should.throw('Invalid config for plugin plugin-path');
+    });
+
+    it('should merge custom and predefined configs', function() {
+        createConfig_({customConfig: {a: 1}, predefinedConfig: {b: 2}})
+            .getConfig().should.be.eql({a: 1, b: 2, techs: {'*': {}}});
     });
 
     it('should consifer `false` value as a `false` config', function() {

@@ -31,7 +31,7 @@ describe('Entity.prototype', function() {
             entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
-                entity.addError({name: 'some.tech'});
+                entity.addError({tech: 'some.tech'});
             }).should.throw();
         });
 
@@ -47,15 +47,7 @@ describe('Entity.prototype', function() {
             entity = new Entity();
 
             (function() {
-                entity.addError({msg: 12345, name: 'some.tech'});
-            }).should.throw();
-        });
-
-        it('should throw if an entity is not implemented in a given tech', function() {
-            entity = new Entity([{name: 'some.tech'}]);
-
-            (function() {
-                entity.addError({msg: 'some-msg', name: 'another.tech'});
+                entity.addError({msg: 12345, tech: 'some.tech'});
             }).should.throw();
         });
 
@@ -63,7 +55,7 @@ describe('Entity.prototype', function() {
             entity = new Entity([{name: 'some.tech'}]);
 
             (function() {
-                entity.addError({msg: 'some-msg', name: 'some.tech', value: 12345});
+                entity.addError({msg: 'some-msg', tech: 'some.tech', value: 12345});
             }).should.throw();
         });
 
