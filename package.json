@@ -22,6 +22,7 @@
     "bem-walk": "^1.0.0-alpha1",
     "chalk": "^1.1.1",
     "coa": "^1.0.1",
+    "handlebars": "^4.0.5",
     "inherit": "^2.2.2",
     "lodash": "^3.10.1",
     "minimatch": "^3.0.0",
