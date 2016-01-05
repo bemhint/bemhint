@@ -1,6 +1,6 @@
 # bemhint [![Build Status](https://travis-ci.org/bem/bemhint.svg)](https://travis-ci.org/bem/bemhint) [![Dependency Status](https://david-dm.org/bem/bemhint.svg)](https://david-dm.org/bem/bemhint) [![devDependency Status](https://david-dm.org/bem/bemhint/dev-status.svg)](https://david-dm.org/bem/bemhint#info=devDependencies)
 
-**bemhint** – это *плагинируемый* линтер БЭМ-проектов. 
+**bemhint** – это *плагинируемый* линтер БЭМ-проектов.
 
 Данный модуль является ядром линтера, предоставляющим API для запуска и написания внешних плагинов, через которые реализуются проверки БЭМ-сущностей проекта.
 
@@ -20,7 +20,7 @@ $ bemhint --help
 
 Опции:
     -h, --help : Помощь
-    -с CONFIGPATH, --config=CONFIGPATH : Путь до конфигурационного файла (по умолчанию: .bemhint)
+    -с CONFIGPATH, --config=CONFIGPATH : Путь до конфигурационного файла (по умолчанию: .bemhint.js)
     -r REPORTERS, --reporter=REPORTERS : Вид отчета с ошибками – flat и/или html (по умолчанию: flat)
 
 Аргументы:
@@ -29,15 +29,15 @@ $ bemhint --help
 
 ### Конфигурационный файл
 
-JSON-файл следующего формата:
+JS/JSON-файл следующего формата:
 
-```json
-{
-  "levels": [],
-  "exludePaths": [],
-  "plugins": {
-    "<имя_плагина>": true
-  }
+```js
+module.exports = {
+    levels: [],
+    exludePaths: [],
+    plugins: {
+        '<имя_плагина>': true
+    }
 }
 ```
 

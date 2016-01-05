@@ -3,7 +3,7 @@ var defaults = require('../lib/defaults');
 describe('defaults', function() {
     it('should format the default object with options', function() {
         defaults().should.be.eql({
-            configPath: '.bemhint',
+            configPath: '.bemhint.js',
             reporters: ['flat'],
             config: {
                 levels: [],
