@@ -45,7 +45,7 @@ module.exports = {
         'libs/**'
     ],
 
-    // список подключаемых плагинов, плагины подключаются из папки `node_modules`
+    // список подключаемых плагинов, плагины подключаются
     // относительно расположения конфигурационного файла
     plugins: {
         '<имя_плагина>': false, // плагин не будет подключен
@@ -65,7 +65,7 @@ module.exports = {
             techs: { // набор технологий, которые необходимо проверять плагином
                 '*': false,
                 'js|deps.js': true,
-                'priv.js': { // отдельный конфиг для технологии `priv.js`
+                'bemhtml.js': { // отдельный конфиг для технологии `bemhtml.js`
                     // конфиг
                 }
             }
@@ -77,3 +77,93 @@ module.exports = {
 ```
 
 **Замечание!** Конфиг для плагина может содержать не только зарезервированные поля `excludePaths` и `techs`, их наличие определяется реализацией плагина.
+
+## Написание плагинов
+
+JS-файл следующего формата:
+
+```js
+module.exports = {
+    /**
+     * Предопределенный конфиг для плагина,
+     * данный конфиг будет объединен с пользовательским конфигом
+     * @returns {Object}
+     */
+    configure: function() {
+        return {
+            // конфиг
+        }
+    },
+
+    /**
+     * @param {Entity[]} entities
+     * @param {Config} config
+     */
+    forEntities: function(entities, config) {
+        // Использование этой функции будет полезно,
+        // если для реализации проверки необходимо знание
+        // о всех БЭМ-сущностях проекта
+    },
+
+    /**
+     * @param {Entity} entity
+     * @param {Config} config
+     */
+    forEachEntity: function(entity, config) {
+        // Использование этой функции будет полезно,
+        // если для реализации проверки достаточно знание
+        // о каждой из БЭМ-сущностей в отдельности
+    },
+
+    /**
+     * @param {Object} tech
+     * @param {Entity} entity
+     * @param {Config} config
+     */
+    forEachTech: function(tech, entity, config) {
+        // Использование этой функции будет полезно,
+        // если для реализации проверки достаточно знание
+        // о каждой из технологий БЭМ-сущностей в отдельности
+    }
+};
+```
+
+**Замечание!** Реализуемый плагин может содержать как одну из функций `forEntities`, `forEachEntity`, `forEachTech`, так и все три, при этом функция `configure` не является обязательной.
+
+#### Entity
+
+БЭМ-сущность проверяемого проекта (блок, элемент, модификатор).
+
+**Entity.prototype.getTechs**<br>
+**@returns** *{Object[]}* - список технологий, в которых реализована данная БЭМ-сущность
+
+**Entity.prototype.getTechByName**<br>
+**@param** *{String}* – имя технологии (css, js и т.д.)<br>
+**@returns** *{Object}* – технология БЭМ-сущности
+
+**Entity.prototype.addError**<br>
+**@param** *{Object}* - объект, описывающий ошибку:
+ * **msg** *{String}* – сообщение об ошибке
+ * **tech** *{String}* – имя технологии, в которой найдена ошибка
+ * **[value]** *{String|Object}* – значение ошибки
+
+#### Config
+
+Конфиг плагина.
+
+**Config.prototype.getConfig**<br>
+**@returns** *{Object}* – полный конфиг для плагина
+
+**Config.prototype.getTechConfig**<br>
+**@param** *{String}* – имя технологии (css, js и т.д.)<br>
+**@returns** *{Object}* – конфиг для технологии
+
+**Config.prototype.isExcludedPath**<br>
+**@param** *{String}* – путь до технологии БЭМ-сущности<br>
+**@returns** *{Boolean}*
+
+## Примеры плагинов
+
+* [bemhint-plugins-jshint](https://github.com/eGavr/bemhint-plugins-jshint)
+
+* [bemhint-plugins-jscs](https://github.com/eGavr/bemhint-plugins-jscs)
