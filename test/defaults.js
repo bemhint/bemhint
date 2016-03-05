@@ -3,25 +3,21 @@ var defaults = require('../lib/defaults');
 describe('defaults', function() {
     it('should format the default object with options', function() {
         defaults().should.be.eql({
-            configPath: '.bemhint.js',
+            basedir: process.cwd(),
             reporters: ['flat'],
-            config: {
-                levels: [],
-                excludePaths: [],
-                plugins: []
-            }
+            levels: [],
+            excludePaths: [],
+            plugins: {}
         });
     });
 
     it('should format a custom object with options', function() {
         var opts = {
-            configPath: 'some/config/path',
+            basedir: 'some/config/path',
             reporters: ['flat', 'html'],
-            config: {
-                levels: ['*blocks'],
-                excludePaths: ['some-libs/**'],
-                plugins: ['some/plugin']
-            }
+            levels: ['*blocks'],
+            excludePaths: ['some-libs/**'],
+            plugins: {'some-plugin': true}
         };
 
         defaults(opts).should.be.eql(opts);
