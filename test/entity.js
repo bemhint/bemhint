@@ -35,11 +35,35 @@ describe('Entity.prototype', function() {
             }).should.throw();
         });
 
-        it('should throw without a tech name', function() {
+        it('should throw without both a tech name and a path', function() {
             entity = new Entity();
 
             (function() {
                 entity.addError({msg: 'some-msg'});
+            }).should.throw();
+        });
+
+        it('should not throw without a tech name and with a path', function() {
+            entity = new Entity();
+
+            (function() {
+                entity.addError({msg: 'some-msg', path: 'some/path'});
+            }).should.not.throw();
+        });
+
+        it('should not throw with a tech name and withouth a path', function() {
+            entity = new Entity();
+
+            (function() {
+                entity.addError({msg: 'some-msg', tech: 'js'});
+            }).should.not.throw();
+        });
+
+        it('should throw with both a tech name and a path', function() {
+            entity = new Entity();
+
+            (function() {
+                entity.addError({msg: 'some-msg', tech: 'js', path: 'some/path'});
             }).should.throw();
         });
 
@@ -99,6 +123,14 @@ describe('Entity.prototype', function() {
             entity.addError({msg: 'some-msg', tech: 'some.tech', value: 'some-value'});
 
             entity.getErrors().should.be.eql([{msg: 'some-msg', path: 'some/path', value: 'some-value'}]);
+        });
+
+        it('should return path from error if it specified', function() {
+            entity = new Entity([{path: 'some/path', name: 'some.tech'}]);
+
+            entity.addError({msg: 'some-msg', value: 'some-value', path: 'other/path'});
+
+            entity.getErrors().should.be.eql([{msg: 'some-msg', path: 'other/path', value: 'some-value'}]);
         });
     });
 });
