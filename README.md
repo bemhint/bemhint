@@ -135,11 +135,11 @@ module.exports = {
 БЭМ-сущность проверяемого проекта (блок, элемент, модификатор).
 
 **Entity.prototype.getTechs**<br>
-**@returns** *{Object[]}* - список технологий, в которых реализована данная БЭМ-сущность
+**@returns** *{Tech[]}* - список технологий, в которых реализована данная БЭМ-сущность
 
 **Entity.prototype.getTechByName**<br>
 **@param** *{String}* – имя технологии (css, js и т.д.)<br>
-**@returns** *{Object}* – технология БЭМ-сущности
+**@returns** *{Tech}* – технология БЭМ-сущности
 
 **Entity.prototype.addError**<br>
 **@param** *{Object}* - объект, описывающий ошибку:
