@@ -12,6 +12,30 @@ describe('Entity.prototype', function() {
         });
     });
 
+    describe('.getDirname', function() {
+        it('should get a dirname of an entity', function() {
+            entity = new Entity([{path: 'entity/dir/some.tech'}]);
+
+            entity.getDirName().should.be.eql('entity/dir');
+        });
+    });
+
+    describe('.getNotation', function() {
+        it('should get a notation of an entity', function() {
+            entity = new Entity([{entity: {block: 'some-block'}}]);
+
+            entity.getNotation().should.be.eql({block: 'some-block'});
+        });
+    });
+
+    describe('.getLevel', function() {
+        it('should get a level of an entity', function() {
+            entity = new Entity([{level: 'some.level'}]);
+
+            entity.getLevel().should.be.eql('some.level');
+        });
+    });
+
     describe('.getTechByName', function() {
         it('should get a tech by name', function() {
             entity = new Entity([{name: 'first.tech'}, {name: 'second.tech'}]);
