@@ -1,4 +1,4 @@
-# bemhint [![Build Status](https://travis-ci.org/bem/bemhint.svg)](https://travis-ci.org/bem/bemhint) [![Dependency Status](https://david-dm.org/bem/bemhint.svg)](https://david-dm.org/bem/bemhint) [![devDependency Status](https://david-dm.org/bem/bemhint/dev-status.svg)](https://david-dm.org/bem/bemhint#info=devDependencies)
+# bemhint [![Build Status](https://travis-ci.org/bemhint/bemhint.svg)](https://travis-ci.org/bemhint/bemhint) [![Dependency Status](https://david-dm.org/bemhint/bemhint.svg)](https://david-dm.org/bemhint/bemhint) [![devDependency Status](https://david-dm.org/bemhint/bemhint/dev-status.svg)](https://david-dm.org/bemhint/bemhint#info=devDependencies)
 
 **bemhint** – это *плагинируемый* линтер БЭМ-проектов.
 

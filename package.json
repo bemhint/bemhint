@@ -5,14 +5,9 @@
   "author": "Eugene Gavryushin <job.egavr@yandex.ru>",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bem/bemhint.git"
+    "url": "git://github.com/bemhint/bemhint.git"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/bem/bemhint/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "bin": {
     "bemhint": "./bin/bemhint"
   },
