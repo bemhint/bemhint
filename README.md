@@ -1,168 +1,168 @@
 # bemhint [![Build Status](https://travis-ci.org/bemhint/bemhint.svg)](https://travis-ci.org/bemhint/bemhint) [![Dependency Status](https://david-dm.org/bemhint/bemhint.svg)](https://david-dm.org/bemhint/bemhint) [![devDependency Status](https://david-dm.org/bemhint/bemhint/dev-status.svg)](https://david-dm.org/bemhint/bemhint#info=devDependencies)
 
-**bemhint** – это *плагинируемый* линтер БЭМ-проектов.
+**bemhint** – it is an *extendable* code quality tool for [BEM](https://en.bem.info) projects.
 
-Данный модуль является ядром линтера, предоставляющим API для запуска и написания внешних плагинов, через которые реализуются проверки БЭМ-сущностей проекта.
+This module is a core of the tool. It provides the API for external plugins which perform checks of project BEM entities.
 
-## Установка
+## Install
 
 ```bash
 $ npm install bemhint
 ```
 
-## Использование
+## Usage
 
-```bash
+```
 $ bemhint --help
 
-Использование:
-    bemhint [ОПЦИИ] [АРГУМЕНТЫ]
+Usage:
+  bemhint [OPTIONS] [ARGS]
 
-Опции:
-    -h, --help : Помощь
-    -с CONFIGPATH, --config=CONFIGPATH : Путь до конфигурационного файла (по умолчанию: .bemhint.js)
-    -r REPORTERS, --reporter=REPORTERS : Вид отчета с ошибками – flat и/или html (по умолчанию: flat)
 
-Аргументы:
-    TARGETS : Пути до БЭМ-сущностей для проверки (обязательный аргумент)
+Options:
+  -h, --help : Help
+  -c CONFIGPATH, --config=CONFIGPATH : Path to a configuration file (default: .bemhint.js)
+  -r REPORTERS, --reporter=REPORTERS : flat or/and html (default: flat)
+
+Arguments:
+  TARGETS : Paths to BEM entities (required)
 ```
 
-## Конфигурационный файл
+## Configuration
 
-JS/JSON-файл следующего формата:
+Configuration is a JavaScript/JSON file in the following format:
 
 ```js
 module.exports = {
-    // cписок имен папок, которые являются уровнями переопределения (папками с блоками)
+    // list of the folder names which represent redefinition levels (folders with blocks)
     levels: [
         '*.blocks',
         'blocks-*'
     ],
 
-    // список путей, которые будут проигнорированы при проверке
+    // paths which will be ignored during the validation
     excludePaths: [
         'node_modules/**',
         'libs/**'
     ],
 
-    // список подключаемых плагинов, плагины подключаются
-    // относительно расположения конфигурационного файла
+    // list of available plugins (node module names relatively to config file path)
     plugins: {
-        '<имя_плагина>': false, // плагин не будет подключен
+        // plugin is disabled
+        '<plugin_name>': false,
 
-        '<имя_плагина>': true, // обычное подключение плагина
+        // plugin is enabled
+        '<plugin_name>': true, 
 
-        '<имя_плагина>': { // подключение плагина с конфигом
-            // конфиг
+        // plugin is enabled and uses following settigns
+        '<plugin_name>': { 
+            // settings
 
-            // список путей, которые будут проигнорированы плагином при проверке
+            // paths which will be ignored during the validation by this plugin
             excludePaths: [
                 'some.blocks/some-block/**',
                 'some.blocks/another-block/_some-mod/*',
                 'some.blocks/yet-another-block/yet-another-block.deps.js'
             ],
 
-            techs: { // набор технологий, которые необходимо проверять плагином
+            // set of the BEM technologies which should be validated by this plugin
+            techs: { 
                 '*': false,
                 'js|deps.js': true,
-                'bemhtml.js': { // отдельный конфиг для технологии `bemhtml.js`
-                    // конфиг
+                
+                // separated settings for `bemhtml.js`
+                'bemhtml.js': { 
+                    // settings
                 }
             }
-
-            // конфиг
         }
     }
 };
 ```
 
-**Замечание!** Конфиг для плагина может содержать не только зарезервированные поля `excludePaths` и `techs`, их наличие определяется реализацией плагина.
+**Note!** Plugin settings can have any other fields which needs for plugin (not only special fields `excludePaths` and `techs`). Set of the fields is defined by implementation of plugin.
 
-## Написание плагинов
+## How to create your own plugin
 
-JS-файл следующего формата:
+You need to create the JavaScript file in following format:
 
 ```js
 module.exports = {
     /**
-     * Предопределенный конфиг для плагина,
-     * данный конфиг будет объединен с пользовательским конфигом
+     * Default plugin settings (it will be merged with settings from configuration file)
      * @returns {Object}
      */
     configure: function() {
         return {
-            // конфиг
+            // settings
         }
     },
 
     /**
+     * Checks which needs the information about all BEM entities of the project
      * @param {Entity[]} entities
      * @param {Config} config
      */
     forEntities: function(entities, config) {
-        // Использование этой функции будет полезно,
-        // если для реализации проверки необходимо знание
-        // о всех БЭМ-сущностях проекта
+        ...
     },
 
     /**
+     * Checks of the specific BEM entity
      * @param {Entity} entity
      * @param {Config} config
      */
     forEachEntity: function(entity, config) {
-        // Использование этой функции будет полезно,
-        // если для реализации проверки достаточно знание
-        // о каждой из БЭМ-сущностей в отдельности
+        ...
     },
 
     /**
+     * Checks of the separate technology of the specific BEM entity
      * @param {Object} tech
      * @param {Entity} entity
      * @param {Config} config
      */
     forEachTech: function(tech, entity, config) {
-        // Использование этой функции будет полезно,
-        // если для реализации проверки достаточно знание
-        // о каждой из технологий БЭМ-сущностей в отдельности
+        ...
     }
 };
 ```
 
-**Замечание!** Реализуемый плагин может содержать как одну из функций `forEntities`, `forEachEntity`, `forEachTech`, так и все три, при этом функция `configure` не является обязательной.
+**Note!** Your plugin should contain at least one of the functions `forEntities`, `forEachEntity`, `forEachTech`, but `configure` function is not required.
 
 #### Entity
 
-БЭМ-сущность проверяемого проекта (блок, элемент, модификатор).
+BEM entity (block, element or modifier).
 
 **Entity.prototype.getTechs**<br>
-**@returns** *{Tech[]}* - список технологий, в которых реализована данная БЭМ-сущность
+**@returns** *{Tech[]}* - list of technologies which implement this BEM entity
 
 **Entity.prototype.getTechByName**<br>
-**@param** *{String}* – имя технологии (css, js и т.д.)<br>
-**@returns** *{Tech}* – технология БЭМ-сущности
+**@param** *{String}* – technology name (css, js etc. - part of a file name which goes after the first dot)<br>
+**@returns** *{Tech}* – technology of BEM entity
 
 **Entity.prototype.addError**<br>
-**@param** *{Object}* - объект, описывающий ошибку:
- * **msg** *{String}* – сообщение об ошибке
- * **tech** *{String}* – имя технологии, в которой найдена ошибка
- * **[value]** *{String|Object}* – значение ошибки
+**@param** *{Object}* - object which contains the information about an error:
+ * **msg** *{String}* – error message
+ * **tech** *{String}* – technology name where error was found
+ * **[value]** *{String|Object}* – error data
 
 #### Config
 
-Конфиг плагина.
+Plugin configuration.
 
 **Config.prototype.getConfig**<br>
-**@returns** *{Object}* – полный конфиг для плагина
+**@returns** *{Object}* – full configuration of a plugin
 
 **Config.prototype.getTechConfig**<br>
-**@param** *{String}* – имя технологии (css, js и т.д.)<br>
-**@returns** *{Object}* – конфиг для технологии
+**@param** *{String}* – technology name<br>
+**@returns** *{Object}* – configuration of the specific technology
 
 **Config.prototype.isExcludedPath**<br>
-**@param** *{String}* – путь до технологии БЭМ-сущности<br>
+**@param** *{String}* – file path<br>
 **@returns** *{Boolean}*
 
-## Примеры плагинов
+## Plugin examples
 
 * [bemhint-plugins-jshint](https://github.com/eGavr/bemhint-plugins-jshint)
 
