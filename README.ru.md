@@ -21,7 +21,7 @@ $ bemhint --help
 Опции:
     -h, --help : Помощь
     -с CONFIGPATH, --config=CONFIGPATH : Путь до конфигурационного файла (по умолчанию: .bemhint.js)
-    -r REPORTERS, --reporter=REPORTERS : Вид отчета с ошибками – flat и/или html (по умолчанию: flat)
+    -r REPORTERS, --reporter=REPORTERS : Вид отчета с ошибками – flat, html и/или teamcity (по умолчанию: flat)
 
 Аргументы:
     TARGETS : Пути до БЭМ-сущностей для проверки (обязательный аргумент)

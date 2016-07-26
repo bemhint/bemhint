@@ -22,7 +22,7 @@ Usage:
 Options:
   -h, --help : Help
   -c CONFIGPATH, --config=CONFIGPATH : Path to a configuration file (default: .bemhint.js)
-  -r REPORTERS, --reporter=REPORTERS : flat or/and html (default: flat)
+  -r REPORTERS, --reporter=REPORTERS : flat, html or/and teamcity (default: flat)
 
 Arguments:
   TARGETS : Paths to BEM entities (required)
