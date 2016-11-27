@@ -9,7 +9,9 @@ describe('Plugin.prototype', function() {
             instanceOfPluginConfig = sinon.match.instanceOf(PluginConfig);
 
         function createPlugin_(opts) {
-            var plugin = new Plugin(require.resolve('../fixtures/plugins/' + opts.name), opts.config || true);
+            var plugin = new Plugin(require.resolve('../fixtures/plugins/' + opts.name), {
+                userConfig: opts.config || true
+            });
 
             spy = sinon.spy(plugin._module, opts.method || opts.name);
 

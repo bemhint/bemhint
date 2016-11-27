@@ -168,6 +168,10 @@ module.exports = {
 **@param** *{String}* – путь до технологии БЭМ-сущности<br>
 **@returns** *{Boolean}*
 
+**Config.prototype.resolvePath**<br>
+**@param** *{String}* – дополняемый путь<br>
+**@returns** *{String}* – абсолютный путь дополненный относительно расположения конфига
+
 ## Примеры плагинов
 
 * [bemhint-plugins-jshint](https://github.com/eGavr/bemhint-plugins-jshint)
