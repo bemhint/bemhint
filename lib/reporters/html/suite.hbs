@@ -13,8 +13,10 @@
     </div>
 {{#errors}}
     <div class="error">
-        <div class="error__message">{{msg}}</div> at
-        <div class="error__path">{{path}}</div> {{#if value}}:{{/if}}
+        <strong class="error__message">{{msg}}</strong> at
+        <span class="error__path">{{path}}</span> {{#if value}}:{{/if}}{{#if location}}{{location.line}}
+            <pre class="error__source">{{split location.sourceLine location.column 'error__source'}}</pre>
+        {{/if}}
         <div class="error__value">{{value}}</div>
     </div>
 {{/errors}}

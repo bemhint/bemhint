@@ -59,4 +59,21 @@ describe('flat reporter', function() {
 
         util.inspect.should.be.calledWith({});
     });
+
+    it('should report with location', function() {
+        flatReporter.write([{
+            msg: 'brace missing',
+            path: '/foo/bar',
+            location: {line: 2, column: 24, sourceLine: '    if (Array.isArray(x) res.push(\'baz\');'},
+            value: 'syntax error'
+        }]);
+
+        std.out.should.be.calledWith([
+            chalk.bold('brace missing') + ' at ' + chalk.green('/foo/bar') + ' :2',
+            '    if (Array.isArray(x) res.push(\'baz\');',
+            '-----------------------^',
+            'syntax error\n',
+            '1 error.'
+        ].join('\n'));
+    });
 });

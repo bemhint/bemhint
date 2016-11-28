@@ -1,9 +1,9 @@
-.body {
-    font-family: Verdana, sans-serif;
+body {
+    font-family: Arial, sans-serif;
 }
 
-.header {
-    margin-bottom: 15px;
+.header + .error {
+    margin-top: 15px;
 }
 
 .header__title {
@@ -11,24 +11,23 @@
     display: inline-block;
 }
 
-.error {
-    margin-bottom: 20px;
-}
-
-.error__message {
-    display: inline-block;
-    margin-top: 10px;
-    font-weight: bold;
+.error + .error {
+    margin-top: 20px;
 }
 
 .error__path {
-    display: inline-block;
-    color: green;
+    color: darkgreen;
+}
+
+.error__source {
+    margin: 10px 0 0;
+}
+
+.error__source-right {
+    background-color: lightcoral;
+    padding: 3px;
 }
 
 .error__value {
-    display: block;
-    margin-top: 5px;
-    font-family: Arial;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
