@@ -162,6 +162,10 @@ Plugin configuration.
 **@param** *{String}* – file path<br>
 **@returns** *{Boolean}*
 
+**Config.prototype.resolvePath**<br>
+**@param** *{String}* – relative path<br>
+**@returns** *{String}* – absolute path built relatively from config file location
+
 ## Plugin examples
 
 * [bemhint-plugins-jshint](https://github.com/eGavr/bemhint-plugins-jshint)

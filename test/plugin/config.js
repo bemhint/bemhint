@@ -4,8 +4,11 @@ describe('PluginConfig', function() {
     function createConfig_(opts) {
         return new PluginConfig(
             opts.path || 'some-path',
-            opts.hasOwnProperty('customConfig') ? opts.customConfig : true,
-            opts.predefinedConfig && function() {return opts.predefinedConfig;}
+            {
+                predefinedConfig: opts.predefinedConfig,
+                userConfig: opts.hasOwnProperty('customConfig') ? opts.customConfig : true,
+                baseConfig: opts.baseConfig
+            }
         );
     }
 
@@ -31,12 +34,12 @@ describe('PluginConfig', function() {
         }).should.throw('Invalid config for plugin plugin-path');
     });
 
-    it('should merge custom and predefined configs', function() {
-        createConfig_({customConfig: {a: 1}, predefinedConfig: {b: 2}})
-            .getConfig().should.be.eql({a: 1, b: 2, techs: {'*': {}}});
+    it('should merge custom and predefined configs in right order', function() {
+        createConfig_({customConfig: {a: 1, b: 5}, predefinedConfig: {b: 2, c: 3}})
+            .getConfig().should.be.eql({a: 1, b: 5, c: 3, techs: {'*': {}}});
     });
 
-    it('should consifer `false` value as a `false` config', function() {
+    it('should consider `false` value as a `false` config', function() {
         createConfig_({customConfig: false}).getConfig().should.be.false;
     });
 
@@ -44,9 +47,13 @@ describe('PluginConfig', function() {
         createConfig_({customConfig: true}).getConfig().should.be.eql({techs: {'*': {}}});
     });
 
+    it('should resolve path', function() {
+        createConfig_({baseConfig: {configDir: '/foo/bar'}}).resolvePath('baz').should.be.eql('/foo/bar/baz');
+    });
+
     describe('techs config', function() {
         function createTechsConfig(techsConfigs) {
-            return new PluginConfig('some-path', {techs: techsConfigs});
+            return new PluginConfig('some-path', {userConfig: {techs: techsConfigs}}, {});
         }
 
         it('should properly work for `{*: true}`', function() {

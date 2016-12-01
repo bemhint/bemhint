@@ -267,7 +267,10 @@ describe('Config.prototype', function() {
             config.requirePlugins();
 
             resolve.sync.should.be.calledWith('some-plugin', {basedir: '/base/dir'});
-            Plugin.prototype.__constructor.should.be.calledWith('/base/dir/node_modules/some-plugin', true);
+            Plugin.prototype.__constructor.should.be.calledWith('/base/dir/node_modules/some-plugin', {
+                userConfig: true,
+                baseConfig: {configDir: '/base/dir'}
+            });
         });
     });
 });
