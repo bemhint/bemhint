@@ -138,6 +138,34 @@ describe('Entity.prototype', function() {
                 entity.addError({msg: 'some-msg', tech: 'some.tech'});
             }).should.not.throw();
         });
+
+        it('should throw with partial location', function() {
+            entity = new Entity();
+
+            [{line: 1}, {column: 1}].forEach(function(partialLocation) {
+                (function() {
+                    entity.addError({msg: 'some-msg', tech: 'some.tech', location: partialLocation});
+                }).should.throw();
+            });
+        });
+
+        it('should throw with invalid location', function() {
+            entity = new Entity();
+
+            [{line: 1, column: 'foo'}, {line: 'bar', column: 1}].forEach(function(invalidLocation) {
+                (function() {
+                    entity.addError({msg: 'some-msg', tech: 'some.tech', location: invalidLocation});
+                }).should.throw();
+            });
+        });
+
+        it('should throw if location used without tech name', function() {
+            entity = new Entity();
+
+            (function() {
+                entity.addError({msg: 'some-msg', location: {line: 1, column: 2}, path: '/foo/bar'});
+            }).should.throw();
+        });
     });
 
     describe('.getErrors', function() {
