@@ -1,21 +1,15 @@
 // TODO: rewrite tests using `mock-fs`
 
 var fs = require('fs'),
-    _ = require('lodash'),
-    q = require('q'),
-    qfs = require('q-io/fs'),
     resolve = require('resolve'),
     sinon = require('sinon'),
     Config = require('../lib/config'),
-    Plugin = require('../lib/plugin');
+    Plugin = require('../lib/plugin'),
+    utils = require('../lib/utils');
 
 describe('Config.prototype', function() {
     var sandbox = sinon.sandbox.create(),
         config;
-
-    beforeEach(function() {
-        config = new Config();
-    });
 
     afterEach(function() {
         sandbox.restore();
@@ -23,20 +17,22 @@ describe('Config.prototype', function() {
 
     ///
     function setTargetType_(type) {
-        fs.statSync.returns({isFile: _.constant(type === 'file')});
+        fs.statSync.returns({isFile: () => type === 'file'});
+    }
+
+    function setTree_(items) {
+        utils.listTree.returns(Promise.resolve(items));
     }
 
     describe('.getLevels', function() {
         beforeEach(function() {
             sandbox.stub(fs, 'statSync');
-
-            sandbox.stub(qfs);
-
-            qfs.listTree.returns(q([]));
+            sandbox.stub(utils, 'listTree');
         });
 
         it('should get the last level in a target dir path', function() {
             setTargetType_('dir');
+            setTree_([]);
 
             config = new Config(['/some-lib/some.blocks/some-block/some-block.examples/blocks'], {
                 levels: ['*blocks']
@@ -47,6 +43,7 @@ describe('Config.prototype', function() {
 
         it('should get the uniq last level in targets dir paths', function() {
             setTargetType_('dir');
+            setTree_([]);
 
             config = new Config(['/some-lib/some.blocks', '/some-lib/some.blocks'], {levels: ['*blocks']});
 
@@ -55,6 +52,7 @@ describe('Config.prototype', function() {
 
         it('should get the last level in a target dir path with `/` at the end', function() {
             setTargetType_('dir');
+            setTree_([]);
 
             config = new Config(['/some-lib/some.blocks/some-block/some-block.examples/blocks/'], {
                 levels: ['*blocks']
@@ -65,6 +63,7 @@ describe('Config.prototype', function() {
 
         it('should not find levels in a target dir path', function() {
             setTargetType_('dir');
+            setTree_([]);
 
             config = new Config(['/some-path/some-dir'], {levels: ['*blocks']});
 
@@ -73,6 +72,7 @@ describe('Config.prototype', function() {
 
         it('should not get the last level in a target dir path if it is excluded', function() {
             setTargetType_('dir');
+            setTree_([]);
 
             config = new Config(['/libs/some-lib/some.blocks'], {levels: ['*blocks'], excludePaths: ['/libs/**']});
 
@@ -81,46 +81,43 @@ describe('Config.prototype', function() {
 
         it('should get a level in a target dir tree', function() {
             setTargetType_('dir');
+            setTree_(['/some-lib/some.blocks']);
 
             config = new Config(['/some-lib'], {levels: ['*blocks']});
-
-            qfs.listTree.returns(q(['/some-lib/some.blocks']));
 
             return config.getLevels().should.become(['/some-lib/some.blocks']);
         });
 
         it('should get the uniq level in targets dir trees', function() {
             setTargetType_('dir');
+            setTree_(['/some-lib/some.blocks']);
 
             config = new Config(['/some-lib', '/some-lib'], {levels: ['*blocks']});
-
-            qfs.listTree.returns(q(['/some-lib/some.blocks']));
 
             return config.getLevels().should.become(['/some-lib/some.blocks']);
         });
 
         it.skip('should not find levels in a target dir tree', function() {
             setTargetType_('dir');
+            setTree_(['/some-lib/some-dir']);
 
             config = new Config(['/some-lib'], {levels: ['*blocks']});
-
-            qfs.listTree.returns(q(['/some-lib/some-dir']));
 
             return config.getLevels().should.become([]);
         });
 
         it.skip('should not get a level in a target dir tree if it is excluded', function() {
             setTargetType_('dir');
+            setTree_(['/libs/some-lib/some.blocks']);
 
             config = new Config(['/libs'], {levels: ['*blocks'], excludePaths: ['/libs/**']});
-
-            qfs.listTree.returns(q(['/libs/some-lib/some.blocks']));
 
             return config.getLevels().should.become([]);
         });
 
         it('should get the last level in a target file path', function() {
             setTargetType_('file');
+            setTree_([]);
 
             config = new Config(['/some-lib/some.blocks/some-block/some-block.examples/blocks/block/block.ext'], {
                 levels: ['*blocks']
@@ -131,6 +128,7 @@ describe('Config.prototype', function() {
 
         it('should get the uniq last level in targets file paths', function() {
             setTargetType_('file');
+            setTree_([]);
 
             config = new Config([
                 '/some.blocks/some-block/some-block.ext',
@@ -142,6 +140,7 @@ describe('Config.prototype', function() {
 
         it('should not find levels in a target file path', function() {
             setTargetType_('file');
+            setTree_([]);
 
             config = new Config(['/some-path/some-dir/some-file.ext'], {levels: ['*blocks']});
 
@@ -150,6 +149,7 @@ describe('Config.prototype', function() {
 
         it('should not get the last level in a target file path if it is excluded', function() {
             setTargetType_('file');
+            setTree_([]);
 
             config = new Config(['/libs/some-lib/some.blocks/some-block/some-block.ext'], {
                 levels: ['*blocks'], excludePaths: ['/libs/**']
@@ -160,6 +160,7 @@ describe('Config.prototype', function() {
 
         it('should not try to find levels in a target tree if it is a file', function() {
             setTargetType_('file');
+            setTree_([]);
 
             config = new Config(['/libs/some-lib/some.blocks/some-block/some-block.ext']);
         });

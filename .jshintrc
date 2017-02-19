@@ -20,5 +20,7 @@
     "node": true,
 
     "laxbreak": true,
-    "expr": true
+    "expr": true,
+
+    "esversion": 6
 }

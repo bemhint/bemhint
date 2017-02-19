@@ -1,24 +1,22 @@
-var _ = require('lodash'),
-    q = require('q'),
-    qfs = require('q-io/fs'),
-    sinon = require('sinon'),
+var sinon = require('sinon'),
     Config = require('../lib/config'),
     scanner = require('../lib/scanner'),
-    bemWalk = require('../lib/scanner/bem-walk');
+    bemWalk = require('../lib/scanner/bem-walk'),
+    utils = require('../lib/utils');
 
 describe('scanner', function() {
     var sandbox = sinon.sandbox.create();
 
     beforeEach(function() {
-        sandbox.stub(qfs);
+        sandbox.stub(utils);
         sandbox.stub(bemWalk);
         sandbox.stub(Config.prototype);
 
-        Config.prototype.getLevels.returns(q(['some-default-level']));
+        Config.prototype.getLevels.returns(Promise.resolve(['some-default-level']));
         Config.prototype.isTargetPath.returns(true);
         Config.prototype.isExcludedPath.returns(false);
 
-        bemWalk.walk.returns(q([]));
+        bemWalk.walk.returns(Promise.resolve([]));
     });
 
     afterEach(function() {
@@ -32,7 +30,7 @@ describe('scanner', function() {
 
     it('should scan levels', function() {
         Config.prototype.getLevels
-            .returns(q(['first-level', 'second-level']));
+            .returns(Promise.resolve(['first-level', 'second-level']));
 
         return scanLevels_()
             .then(function() {
@@ -41,7 +39,7 @@ describe('scanner', function() {
     });
 
     it('should skip a tech in a level if it is not a target', function() {
-        bemWalk.walk.returns(q([{path: 'some-path'}]));
+        bemWalk.walk.returns(Promise.resolve([{path: 'some-path'}]));
 
         Config.prototype.isTargetPath
             .withArgs('some-path')
@@ -52,7 +50,7 @@ describe('scanner', function() {
     });
 
     it('should skip a tech in a level if it is excluded', function() {
-        bemWalk.walk.returns(q([{path: 'some-path'}]));
+        bemWalk.walk.returns(Promise.resolve([{path: 'some-path'}]));
 
         Config.prototype.isExcludedPath
             .withArgs('some-path')
@@ -63,19 +61,18 @@ describe('scanner', function() {
     });
 
     it('should not load a tech content if it is a dir', function() {
-        bemWalk.walk.returns(q([{path: 'some-path'}]));
+        bemWalk.walk.returns(Promise.resolve([{path: 'some-path'}]));
 
-        qfs.stat.returns(q({isDirectory: _.constant(true)}));
+        utils.readIfFile.returns(Promise.resolve(undefined));
 
         return scanLevels_()
             .should.eventually.be.eql([{path: 'some-path'}]);
     });
 
     it('should scan a tech in a level and load its content', function() {
-        bemWalk.walk.returns(q([{path: 'some-path'}]));
+        bemWalk.walk.returns(Promise.resolve([{path: 'some-path'}]));
 
-        qfs.stat.returns(q({isDirectory: _.constant(false)}));
-        qfs.read.returns(q('some-content'));
+        utils.readIfFile.returns(Promise.resolve('some-content'));
 
         return scanLevels_()
             .should.eventually.be.eql([{path: 'some-path', content: 'some-content'}]);
