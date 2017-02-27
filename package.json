@@ -15,6 +15,7 @@
   "dependencies": {
     "bem-naming": "^0.5.1",
     "bem-walk": "^1.0.0-alpha1",
+    "bluebird": "^3.4.7",
     "chalk": "^1.1.1",
     "coa": "^1.0.1",
     "handlebars": "^4.0.5",
