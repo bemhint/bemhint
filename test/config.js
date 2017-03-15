@@ -123,6 +123,14 @@ describe('Config.prototype', () => {
 
                 return config.getLevels().should.become(['/some-lib/some.blocks']);
             });
+
+            it('should not get level for matched file', () => {
+                config = new Config(['/some-lib/some.blocks'], {
+                    levels: ['block*']
+                });
+
+                return config.getLevels().should.become(['/some-lib/some.blocks/blocks']);
+            });
         });
     });
 
