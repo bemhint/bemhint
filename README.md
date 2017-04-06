@@ -143,6 +143,7 @@ BEM entity (block, element or modifier).
 
 **Entity.prototype.addError**<br>
 **@param** *{Object}* - object which contains the information about an error:
+ * **location** *{Object}* - `{line, column}` location of error in a file; works with `tech` argument only
  * **msg** *{String}* – error message
  * **tech** *{String}* – technology name where error was found
  * **[value]** *{String|Object}* – error data

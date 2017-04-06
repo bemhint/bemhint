@@ -1,4 +1,7 @@
-var utils = require('../lib/utils');
+'use strict';
+
+var mockFs = require('mock-fs'),
+    utils = require('../lib/utils');
 
 describe('utils', function() {
     describe('.someMinimatch', function() {
@@ -26,5 +29,36 @@ describe('utils', function() {
             utils.replaceTech('/some/path/file.some.tech', 'another.tech')
                 .should.be.equal('/some/path/file.another.tech');
         });
+    });
+
+    describe('.readIfFile', function() {
+        beforeEach(() => {
+            mockFs({
+                foo: [],
+                bar: 'abc'
+            });
+        });
+
+        afterEach(() => {
+            mockFs.restore();
+        });
+
+        it('should return undefined for directory', () =>
+            utils
+                .readIfFile('foo')
+                .should.eventually.be.undefined
+        );
+
+        it('should fail for missing file', () =>
+            utils
+                .readIfFile('xyz')
+                .should.be.rejected
+        );
+
+        it('should read normal file content', () =>
+            utils
+                .readIfFile('bar')
+                .should.eventually.be.equal('abc')
+        );
     });
 });

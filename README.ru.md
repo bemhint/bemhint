@@ -149,6 +149,7 @@ module.exports = {
 
 **Entity.prototype.addError**<br>
 **@param** *{Object}* - объект, описывающий ошибку:
+ * **location** *{Object}* - `{line, column}` позиция ошибки в файле; работает только с аргументом `tech`
  * **msg** *{String}* – сообщение об ошибке
  * **tech** *{String}* – имя технологии, в которой найдена ошибка
  * **[value]** *{String|Object}* – значение ошибки
