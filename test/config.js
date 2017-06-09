@@ -243,5 +243,27 @@ describe('Config.prototype', () => {
                 baseConfig: {configDir: '/base/dir'}
             });
         });
+
+        it('should require plugin multiple times with array', () => {
+            config = new Config([], {
+                plugins: {
+                    'some-plugin': [{foo: true}, {bar: true}]
+                },
+                basedir: '/path/to'
+            });
+
+            resolve.sync.returns('/path/to/some-plugin');
+
+            config.requirePlugins();
+
+            Plugin.prototype.__constructor.firstCall.args.should.deep.equal([
+                '/path/to/some-plugin',
+                {userConfig: {foo: true}, baseConfig: {configDir: '/path/to'}}
+            ]);
+            Plugin.prototype.__constructor.secondCall.args.should.deep.equal([
+                '/path/to/some-plugin',
+                {userConfig: {bar: true}, baseConfig: {configDir: '/path/to'}}
+            ]);
+        });
     });
 });
