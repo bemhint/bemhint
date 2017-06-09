@@ -75,12 +75,30 @@ module.exports = {
                     // settings
                 }
             }
-        }
+        },
+
+        // plugin is enabled several times using array items as settings
+        '<plugin_name>': [
+            {
+                // settings
+                tech: {
+                    'deps.js': true
+                }
+            },
+            {
+                // other settings
+                tech: {
+                    'bemdecl.js': true
+                }
+            }
+        ]
     }
 };
 ```
 
 **Note!** Plugin settings can have any other fields which needs for plugin (not only special fields `excludePaths` and `techs`). Set of the fields is defined by implementation of plugin.
+
+**Note!** Plugin can be used several times if it have pure implementation (do not have inner state).
 
 ## How to create your own plugin
 
