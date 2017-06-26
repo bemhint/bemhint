@@ -82,6 +82,23 @@ module.exports = {
 
 **Note!** Plugin settings can have any other fields which needs for plugin (not only special fields `excludePaths` and `techs`). Set of the fields is defined by implementation of plugin.
 
+### Nested blocks folders
+
+If levels located in the folders `blocks/{levelName}`, then:
+
+In the `levels` array of configuration file specify only `{levelName}` (basename). Eg:
+```js
+levels: [
+    'root',
+    'shared',
+    // ...
+],
+```
+In command line parameter `TARGETS` use containing folder location (`blocks`):
+```shell
+$ bemhtml blocks
+```
+
 ## How to create your own plugin
 
 You need to create the JavaScript file in following format:
