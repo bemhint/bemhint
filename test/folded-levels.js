@@ -1,10 +1,10 @@
 'use strict';
 
 var mockFs = require('mock-fs'),
-    resolve = require('resolve'),
-    sinon = require('sinon'),
-    Config = require('../lib/config'),
-    Plugin = require('../lib/plugin');
+    // resolve = require('resolve'),
+    // sinon = require('sinon'),
+    Config = require('../lib/config');
+    // Plugin = require('../lib/plugin');
 
 describe('folded-levels', () => {
     let config;
@@ -18,7 +18,7 @@ describe('folded-levels', () => {
                             'block': {
                                 'block.ext': 'foo'
                             }
-                        },
+                        }
                     }
                 }
             });
@@ -32,7 +32,7 @@ describe('folded-levels', () => {
             it('should get last level in target', () => {
                 config = new Config(['/some-lib/blocks/some-level/block/block.ext'], {
                     levels: ['some-level'],
-                    foldedLevels: true,
+                    foldedLevels: true
                 });
 
                 return config.getLevels().should.become(['/some-lib/blocks/some-level']);
@@ -43,12 +43,12 @@ describe('folded-levels', () => {
         describe('dir target', () => {
             it('should get last level in target', () => {
                 config = new Config(['/some-lib/blocks/some-level'], {
-                    levels: ['some-level']
+                    levels: ['some-level'],
+                    foldedLevels: true
                 });
 
                 return config.getLevels().should.become(['/some-lib/blocks/some-level']);
             });
-
         });
     });
 
@@ -62,25 +62,25 @@ describe('folded-levels', () => {
         });
 
         it('should be a target path for dir input target', () => {
-            config = new Config(['/blocks/block']);
+            config = new Config(['/blocks/block'], {foldedLevels: true});
 
             config.isTargetPath('/blocks/block/block.ext').should.be.true;
         });
 
         it('should not be a target path for dir input target', () => {
-            config = new Config(['/blocks/block']);
+            config = new Config(['/blocks/block'], {foldedLevels: true});
 
             config.isTargetPath('/blocks/other/block.ext').should.be.false;
         });
 
         it('should be a target path for file input target', () => {
-            config = new Config(['/blocks/block/block.ext']);
+            config = new Config(['/blocks/block/block.ext'], {foldedLevels: true});
 
             config.isTargetPath('/blocks/block/block.another.ext').should.be.true;
         });
 
         it('should not be a target path for file input target', () => {
-            config = new Config(['/blocks/block/block.ext']);
+            config = new Config(['/blocks/block/block.ext'], {foldedLevels: true});
 
             config.isTargetPath('/some.blocks/other/block.ext').should.be.false;
         });
