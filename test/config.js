@@ -243,5 +243,19 @@ describe('Config.prototype', () => {
                 baseConfig: {configDir: '/base/dir'}
             });
         });
+
+        it('should require plugin multiple times if its config is an array', () => {
+            config = new Config([], {
+                plugins: {
+                    'some-plugin': [{foo: true}, {bar: true}]
+                }
+            });
+
+            config.requirePlugins();
+
+            Plugin.prototype.__constructor.should.be.calledTwice;
+            Plugin.prototype.__constructor.should.be.calledWithMatch(sinon.match.any, {userConfig: {foo: true}});
+            Plugin.prototype.__constructor.should.be.calledWithMatch(sinon.match.any, {userConfig: {bar: true}});
+        });
     });
 });
