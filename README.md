@@ -52,10 +52,10 @@ module.exports = {
         '<plugin_name>': false,
 
         // plugin is enabled
-        '<plugin_name>': true, 
+        '<plugin_name>': true,
 
         // plugin is enabled and uses following settigns
-        '<plugin_name>': { 
+        '<plugin_name>': {
             // settings
 
             // paths which will be ignored during the validation by this plugin
@@ -66,16 +66,33 @@ module.exports = {
             ],
 
             // set of the BEM technologies which should be validated by this plugin
-            techs: { 
+            techs: {
                 '*': false,
                 'js|deps.js': true,
-                
+
                 // separated settings for `bemhtml.js`
-                'bemhtml.js': { 
+                'bemhtml.js': {
                     // settings
                 }
             }
-        }
+        },
+
+        // plugin is enabled and will be run as many times as many configurations have been specified;
+        // be aware of different side effects which may appear depending on a plugin implementation
+        '<plugin_name>': [
+            {
+                // settings
+                tech: {
+                    'deps.js': true
+                }
+            },
+            {
+                // other settings
+                tech: {
+                    'bemdecl.js': true
+                }
+            }
+        ]
     }
 };
 ```
