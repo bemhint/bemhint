@@ -186,6 +186,6 @@ Plugin configuration.
 
 ## Plugin examples
 
-* [bemhint-plugins-jshint](https://github.com/eGavr/bemhint-plugins-jshint)
-
-* [bemhint-plugins-jscs](https://github.com/eGavr/bemhint-plugins-jscs)
+* [bemhint-deps-schema](https://github.com/bemhint/bemhint-deps-schema)
+* [bemhint-css-naming](https://github.com/bemhint/bemhint-css-naming)
+* [bemhint-fs-naming](https://github.com/bemhint/bemhint-fs-naming) (experimental)
