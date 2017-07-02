@@ -22,7 +22,7 @@ describe('bemhint', function() {
 
     describe('core', function() {
         beforeEach(function() {
-            sandbox.stub(scanner, 'scan', () => Promise.resolve([]));
+            sandbox.stub(scanner, 'scan').callsFake(() => Promise.resolve([]));
         });
 
         it('should init config', function() {
@@ -95,7 +95,7 @@ describe('bemhint', function() {
     });
 
     it('should group scanned techs by entities', function() {
-        sandbox.stub(scanner, 'scan', () => Promise.resolve([
+        sandbox.stub(scanner, 'scan').callsFake(() => Promise.resolve([
             {entity: {block: 'some-block'}, level: 'some-level', tech: 'js'},
             {entity: {block: 'some-block'}, level: 'some-level', tech: 'css'},
             {entity: {block: 'some-block', elem: 'some-elem'}, level: 'some-level', tech: 'js'},
