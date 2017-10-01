@@ -171,6 +171,10 @@ module.exports = {
  * **tech** *{String}* – имя технологии, в которой найдена ошибка
  * **[value]** *{String|Object}* – значение ошибки
 
+**Entity.prototype.addWarning**<br>
+
+У этого метода такое же API как у `addError`.
+
 #### Config
 
 Конфиг плагина.

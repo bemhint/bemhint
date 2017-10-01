@@ -52,15 +52,15 @@ describe('bemhint', function() {
                 });
         });
 
-        it('should get errors', function() {
+        it('should get defects', function() {
             return bemhint()
                 .then(function() {
-                    PluginsRunner.prototype.getErrors.should.be.called;
+                    PluginsRunner.prototype.getDefects.should.be.called;
                 });
         });
 
         it('should make a report', function() {
-            PluginsRunner.prototype.getErrors.returns([{msg: 'first-error'}, {msg: 'second-error'}]);
+            PluginsRunner.prototype.getDefects.returns([{msg: 'first-error'}, {msg: 'second-error'}]);
 
             return bemhint([], {reporters: ['flat']})
                 .then(function() {
@@ -68,14 +68,14 @@ describe('bemhint', function() {
                 });
         });
 
-        it('should return errors', function() {
-            PluginsRunner.prototype.getErrors.returns([{msg: 'first-error'}, {msg: 'second-error'}]);
+        it('should return defects', function() {
+            PluginsRunner.prototype.getDefects.returns([{msg: 'first-error'}, {msg: 'second-error'}]);
 
             return bemhint().should.become([{msg: 'first-error'}, {msg: 'second-error'}]);
         });
 
-        it('should sort errors by path', function() {
-            PluginsRunner.prototype.getErrors.returns([{path: 'b'}, {path: 'c'}, {path: 'a'}]);
+        it('should sort defects by path', function() {
+            PluginsRunner.prototype.getDefects.returns([{path: 'b'}, {path: 'c'}, {path: 'a'}]);
 
             return bemhint()
                 .then(function() {
@@ -83,13 +83,13 @@ describe('bemhint', function() {
                 });
         });
 
-        it('should scan levels –> run plugins –> get errors –> make reports', function() {
+        it('should scan levels –> run plugins –> get defects –> make reports', function() {
             return bemhint()
                 .then(function() {
                     scanner.scan.should.be.called;
                     PluginsRunner.prototype.runPlugin.should.be.calledAfter(scanner.scan);
-                    PluginsRunner.prototype.getErrors.should.be.calledAfter(PluginsRunner.prototype.runPlugin);
-                    flatReporter.write.should.be.calledAfter(PluginsRunner.prototype.getErrors);
+                    PluginsRunner.prototype.getDefects.should.be.calledAfter(PluginsRunner.prototype.runPlugin);
+                    flatReporter.write.should.be.calledAfter(PluginsRunner.prototype.getDefects);
                 });
         });
     });

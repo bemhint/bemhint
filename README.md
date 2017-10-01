@@ -165,6 +165,10 @@ BEM entity (block, element or modifier).
  * **tech** *{String}* – technology name where error was found
  * **[value]** *{String|Object}* – error data
 
+**Entity.prototype.addWarning**<br>
+
+This method has the same API as `addError`.
+
 #### Config
 
 Plugin configuration.

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>bemhint</title>
+    <meta charset="utf-8">
+    <style type="text/css">
+{{stylesheet}}
+    </style>
+</head>
+<body>
+{{#defects}}
+    <div class="defect">
+        <span class="defect__message {{#if isError}}error{{else}}warning{{/if}}">{{msg}}</span> at
+        <span class="defect__path">{{path}}</span>{{#if value}}:{{/if}}{{#if location}}{{location.line}}:{{location.column}}
+            <pre class="defect__source">{{split location.sourceLine location.column 'defect__source'}}</pre>
+        {{/if}}
+        <div class="defect__value">{{value}}</div>
+    </div>
+{{/defects}}
+    <div class="footer"></div>
+        {{#if defects.length}}
+            <p class="footer__value {{#if hasErrors}}error{{else}}warning{{/if}}">{{footer}}</p>
+        {{else}}
+            <p class="footer__value">{{footer}}</p>
+        {{/if}}
+    </div>
+</body>
+</html>

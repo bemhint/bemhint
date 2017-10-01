@@ -25,27 +25,27 @@ describe('PluginsRunner', function() {
     });
 
     describe('.prototype', function() {
-        describe('.getErrors', function() {
+        describe('.getDefects', function() {
             beforeEach(function() {
-                sandbox.stub(Entity.prototype, 'getErrors');
+                sandbox.stub(Entity.prototype, 'getDefects');
             });
 
-            it('should get errors', function() {
+            it('should get defects', function() {
                 pluginsRunner = new PluginsRunner([[{tech: 'some.tech'}]]);
 
-                Entity.prototype.getErrors.returns([{msg: 'some-msg', path: 'some/path/some.tech'}]);
+                Entity.prototype.getDefects.returns([{msg: 'some-msg', path: 'some/path/some.tech'}]);
 
-                pluginsRunner.getErrors().should.be.eql([{msg: 'some-msg', path: 'some/path/some.tech'}]);
+                pluginsRunner.getDefects().should.be.eql([{msg: 'some-msg', path: 'some/path/some.tech'}]);
             });
 
-            it('should get errors from several entities', function() {
+            it('should get defects from several entities', function() {
                 pluginsRunner = new PluginsRunner([[{tech: 'first-entity.tech'}], [{tech: 'second-entity.tech'}]]);
 
-                Entity.prototype.getErrors
+                Entity.prototype.getDefects
                     .onFirstCall().returns([{msg: 'first-msg', path: 'some/path/some.first-entity.tech'}])
                     .onSecondCall().returns([{msg: 'second-msg', path: 'some/path/some.second-entity.tech'}]);
 
-                pluginsRunner.getErrors()
+                pluginsRunner.getDefects()
                     .should.be.eql([
                         {msg: 'first-msg', path: 'some/path/some.first-entity.tech'},
                         {msg: 'second-msg', path: 'some/path/some.second-entity.tech'}
