@@ -199,3 +199,5 @@ module.exports = {
 * [bemhint-deps-schema](https://github.com/bemhint/bemhint-deps-schema)
 * [bemhint-css-naming](https://github.com/bemhint/bemhint-css-naming)
 * [bemhint-fs-naming](https://github.com/bemhint/bemhint-fs-naming) (экспериментальный)
+* [bemhint-bem-xjst](https://github.com/bemhint/bemhint-bem-xjst)
+* [bemhint-estree](https://github.com/bemhint/bemhint-estree)
