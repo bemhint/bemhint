@@ -2,32 +2,37 @@ body {
     font-family: Arial, sans-serif;
 }
 
-.header + .error {
-    margin-top: 15px;
-}
-
-.header__title {
-    font-weight: bold;
-    display: inline-block;
-}
-
-.error + .error {
+.defect + .defect {
     margin-top: 20px;
 }
 
-.error__path {
-    color: darkgreen;
+.defect__path {
+    text-decoration: underline;
 }
 
-.error__source {
+.defect__source {
     margin: 10px 0 0;
 }
 
-.error__source-right {
+.defect__source-right {
     background-color: lightcoral;
     padding: 3px;
 }
 
-.error__value {
+.defect__value {
     margin-top: 10px;
+}
+
+.footer__value {
+    font-weight: bold;
+    display: inline-block;
+    color: green;
+}
+
+.error {
+    color: red;
+}
+
+.warning {
+    color: #ffc400;
 }

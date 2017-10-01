@@ -168,21 +168,31 @@ describe('Entity.prototype', function() {
         });
     });
 
-    describe('.getErrors', function() {
-        it('should get errors', function() {
+    describe('.getDefects', function() {
+        it('should get defects', function() {
             entity = new Entity([{path: 'some/path', name: 'some.tech'}]);
 
             entity.addError({msg: 'some-msg', tech: 'some.tech', value: 'some-value'});
 
-            entity.getErrors().should.be.eql([{msg: 'some-msg', path: 'some/path', value: 'some-value'}]);
+            entity.getDefects().should.be.eql([{
+                msg: 'some-msg',
+                path: 'some/path',
+                value: 'some-value',
+                type: 'error'
+            }]);
         });
 
-        it('should return path from error if it specified', function() {
+        it('should return path from defect if it specified', function() {
             entity = new Entity([{path: 'some/path', name: 'some.tech'}]);
 
             entity.addError({msg: 'some-msg', value: 'some-value', path: 'other/path'});
 
-            entity.getErrors().should.be.eql([{msg: 'some-msg', path: 'other/path', value: 'some-value'}]);
+            entity.getDefects().should.be.eql([{
+                msg: 'some-msg',
+                path: 'other/path',
+                value: 'some-value',
+                type: 'error'
+            }]);
         });
     });
 });
