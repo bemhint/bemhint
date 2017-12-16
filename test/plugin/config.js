@@ -7,7 +7,7 @@ describe('PluginConfig', function() {
             {
                 predefinedConfig: opts.predefinedConfig,
                 userConfig: opts.hasOwnProperty('customConfig') ? opts.customConfig : true,
-                baseConfig: opts.baseConfig
+                baseConfig: opts.baseConfig || {}
             }
         );
     }
@@ -53,7 +53,7 @@ describe('PluginConfig', function() {
 
     describe('techs config', function() {
         function createTechsConfig(techsConfigs) {
-            return new PluginConfig('some-path', {userConfig: {techs: techsConfigs}}, {});
+            return new PluginConfig('some-path', {userConfig: {techs: techsConfigs}, baseConfig: {}});
         }
 
         it('should properly work for `{*: true}`', function() {

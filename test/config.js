@@ -9,26 +9,26 @@ var mockFs = require('mock-fs'),
 describe('Config.prototype', () => {
     let config;
 
-    describe('.getLevels', () => {
-        beforeEach(() => {
-            mockFs({
-                '/some-lib': {
-                    'some.blocks': {
-                        'blocks': {
-                            'block.ext': 'foo'
-                        }
-                    },
-                    'some.other': {
-                        'other.ext': 'bar'
+    beforeEach(() => {
+        mockFs({
+            '/some-lib': {
+                'some.blocks': {
+                    'blocks': {
+                        'block.ext': 'foo'
                     }
+                },
+                'some.other': {
+                    'other.ext': 'bar'
                 }
-            });
+            }
         });
+    });
 
-        afterEach(() => {
-            mockFs.restore();
-        });
+    afterEach(() => {
+        mockFs.restore();
+    });
 
+    describe('.getLevels', () => {
         describe('file target', () => {
             it('should get last level in target', () => {
                 config = new Config(['/some-lib/some.blocks/blocks/block.ext'], {
@@ -240,7 +240,7 @@ describe('Config.prototype', () => {
             resolve.sync.should.be.calledWith('some-plugin', {basedir: '/base/dir'});
             Plugin.prototype.__constructor.should.be.calledWith('/base/dir/node_modules/some-plugin', {
                 userConfig: true,
-                baseConfig: {configDir: '/base/dir'}
+                baseConfig: {configDir: '/base/dir', targets: []}
             });
         });
 
@@ -256,6 +256,22 @@ describe('Config.prototype', () => {
             Plugin.prototype.__constructor.should.be.calledTwice;
             Plugin.prototype.__constructor.should.be.calledWithMatch(sinon.match.any, {userConfig: {foo: true}});
             Plugin.prototype.__constructor.should.be.calledWithMatch(sinon.match.any, {userConfig: {bar: true}});
+        });
+
+        it('should require plugin with prepared targets', () => {
+            config = new Config(['/some-lib/some.blocks/blocks', '/some-lib/some.other/other.ext'],
+                {plugins: {'some-plugin': true}});
+
+            config.requirePlugins();
+
+            Plugin.prototype.__constructor.should.be.calledWith(sinon.match.any, sinon.match({
+                baseConfig: {
+                    targets: [
+                        {isFile: false, path: '/some-lib/some.blocks/blocks'},
+                        {isFile: true, path: '/some-lib/some.other/other.ext'}
+                    ]
+                }
+            }));
         });
     });
 });

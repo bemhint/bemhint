@@ -10,7 +10,8 @@ describe('Plugin.prototype', function() {
 
         function createPlugin_(opts) {
             var plugin = new Plugin(require.resolve('../fixtures/plugins/' + opts.name), {
-                userConfig: opts.config || true
+                userConfig: opts.config || true,
+                baseConfig: opts.baseConfig || {targets: [{isFile: false, path: '**/'}]}
             });
 
             spy = sinon.spy(plugin._module, opts.method || opts.name);
@@ -22,7 +23,7 @@ describe('Plugin.prototype', function() {
         function createEntities_(entities) {
             return entities.map(function(techs) {
                 return new Entity(techs.map(function(item) {
-                    return typeof item === 'string' ? {name: item} : item;
+                    return typeof item === 'string' ? {name: item, path: '/some/path'} : item;
                 }));
             });
         }
@@ -77,8 +78,35 @@ describe('Plugin.prototype', function() {
 
             createPlugin_({name: 'forEachTech'}).run(entities);
 
-            spy.firstCall.should.be.calledWith({name: 'some-tech'}, entities[0], instanceOfPluginConfig);
-            spy.secondCall.should.be.calledWith({name: 'another-tech'}, entities[1], instanceOfPluginConfig);
+            spy.firstCall.should.be.calledWith(sinon.match({name: 'some-tech'}), entities[0], instanceOfPluginConfig);
+            spy.secondCall.should.be.calledWith(sinon.match({name: 'another-tech'}), entities[1], instanceOfPluginConfig);
+        });
+
+        it('should run for each tech which is a target', () => {
+            var entities = createEntities_([
+                [
+                    {name: 'some-tech', path: 'some/path/file.some-tech'},
+                    {name: 'another-tech', path: 'some/path/file.another-tech'}
+                ],
+                [
+                    {name: 'another-tech', path: 'another/path/file.another-tech'}
+                ]
+            ]);
+
+            createPlugin_({
+                name: 'forEachTech',
+                config: {techs: {'some-tech|another-tech': true}},
+                baseConfig: {
+                    targets: [
+                        {isFile: true, path: 'some/path/file.some-tech'},
+                        {isFile: false, path: 'another/path'}
+                    ]
+                }
+            }).run(entities);
+
+            spy.should.be.calledTwice;
+            spy.firstCall.should.be.calledWith({name: 'some-tech', path: 'some/path/file.some-tech'}, entities[0]);
+            spy.secondCall.should.be.calledWith({name: 'another-tech', path: 'another/path/file.another-tech'}, entities[1]);
         });
 
         it('should run for each tech which is specified in a custom config', function() {
@@ -87,7 +115,7 @@ describe('Plugin.prototype', function() {
             createPlugin_({name: 'forEachTech', config: {techs: {'some-tech': true}}}).run(entities);
 
             spy.should.be.calledOnce;
-            spy.should.be.calledWith({name: 'some-tech'}, entities[0]);
+            spy.should.be.calledWith(sinon.match({name: 'some-tech'}), entities[0]);
         });
 
         it('should run for each tech which is specified in a predefined config', function() {
@@ -96,7 +124,7 @@ describe('Plugin.prototype', function() {
             createPlugin_({name: 'forEachTech-techs', method: 'forEachTech'}).run(entities);
 
             spy.should.be.calledOnce;
-            spy.should.be.calledWith({name: 'some-tech'}, entities[0]);
+            spy.should.be.calledWith(sinon.match({name: 'some-tech'}), entities[0]);
         });
 
         it('should run for each tech which is not excluded in a custom config', function() {
